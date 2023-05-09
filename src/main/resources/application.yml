@@ -10,3 +10,18 @@ spring:
         console:
             enabled: true
             path: /h2-console
+
+#    # JPA Setting
+#    jpa:
+#        hibernate:
+#            ddl-auto: none
+#    # SQL Init
+#    sql:
+#        init:
+#            mode: always
+
+    jpa:
+        hibernate:
+            ddl-auto: create
+        show-sql: true
+        defer-datasource-initialization: true

@@ -44,14 +44,22 @@ public class MemberService {
 
     // db랑 어케 엮을건지 생각...
     public Member getMember(String email) {
-        Optional<Member> member = this.memberRepository.findByEmail(email);
+        Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent()) {
             return member.get();
         } else {
             log.warn("member does not exists");
             throw new RuntimeException("member does not exists");
         }
+    }
 
+    public Member modify(Member member, String password, String name, String push_email, String bank, String bank_account_number){
+        member.setPassword(password);
+        member.setName(name);
+        member.setPush_email(push_email);
+        member.setBank(bank);
+        member.setBank_account_number(bank_account_number);
+        return memberRepository.save(member);
     }
 
     public Member getByCredentials(String email, String password) {

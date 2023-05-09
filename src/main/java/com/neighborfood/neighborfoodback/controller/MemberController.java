@@ -1,6 +1,7 @@
 package com.neighborfood.neighborfoodback.controller;
 
 import com.neighborfood.neighborfoodback.dto.MemberDTO;
+import com.neighborfood.neighborfoodback.dto.MemberModifyDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.security.jwtTokenProvider;
@@ -8,6 +9,7 @@ import com.neighborfood.neighborfoodback.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
@@ -78,6 +80,50 @@ public class MemberController {
                 .email(memberDTO.getEmail())
                 .build();
         memberService.delete(memberDTO.getEmail());
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
+    // 회원정보 get (이메일, 이름, 은행, 계좌번호)
+    @GetMapping("/getMember")
+    public ResponseEntity<?> getMember(@AuthenticationPrincipal String email){
+        Member member = memberService.getMember(email);
+        MemberDTO responseDTO = MemberDTO.builder()
+                .email(member.getEmail())
+                .name(member.getName())
+                .bank(member.getBank())
+                .bank_account_number(member.getBank_account_number())
+                .build();
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
+    // 회원 정보 수정
+    @PostMapping("/modify")
+    public ResponseEntity<?> modify(@RequestBody MemberModifyDTO memberModifyDTO, @AuthenticationPrincipal String email){
+        if (!memberModifyDTO.getPassword1().equals(memberModifyDTO.getPassword2())){
+            ResponseDTO<?> responseDTO = ResponseDTO.builder()
+                    .error("2개의 패스워드 불일치")
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+
+        Member member = memberService.getMember(email);
+        Member modifiedMember = memberService.modify(
+                member,
+                memberModifyDTO.getPassword1(),
+                memberModifyDTO.getName(),
+                memberModifyDTO.getPush_email(),
+                memberModifyDTO.getBank(),
+                memberModifyDTO.getBank_account_number()
+        );
+        // 응답
+        MemberDTO responseDTO = MemberDTO.builder()
+                .email(modifiedMember.getEmail())
+                .password(modifiedMember.getPassword())
+                .name(modifiedMember.getName())
+                .push_email(modifiedMember.getPush_email())
+                .bank(modifiedMember.getBank())
+                .bank_account_number(modifiedMember.getBank_account_number())
+                .build();
         return ResponseEntity.ok().body(responseDTO);
     }
 }
