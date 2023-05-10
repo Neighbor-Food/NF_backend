@@ -16,6 +16,9 @@ import com.uracle.nfbackend.nfbackend.entity.CRUD;
 public class CRUDServiceImpl implements CRUDService{
     @Override
     public String createCRUD(CRUD crud) throws ExecutionException, InterruptedException{
+        if (crud.getName() == null || crud.getName().isEmpty()) {
+            throw new IllegalArgumentException("Name must be a non-empty String");
+        }
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("crud_user").document(crud.getName()).set(crud);
         return collectionsApiFuture.get().getUpdateTime().toString();
@@ -35,8 +38,11 @@ public class CRUDServiceImpl implements CRUDService{
         }
     }
     @Override
-    public String updateCRUD(CRUD crud){
-        return "";
+    public String updateCRUD(CRUD crud) throws ExecutionException, InterruptedException{
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("crud_user").document(crud.getName()).set(crud);
+
+        return collectionsApiFuture.get().getUpdateTime().toString();
     }
     @Override
     public String deleteCRUD(String document_id){

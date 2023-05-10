@@ -7,6 +7,6 @@ import com.uracle.nfbackend.nfbackend.entity.CRUD;
 public interface CRUDService {
     public String createCRUD(CRUD crud) throws ExecutionException, InterruptedException;
     public CRUD getCRUD(String document_id) throws ExecutionException, InterruptedException;
-    public String updateCRUD(CRUD crud);
+    public String updateCRUD(CRUD crud) throws ExecutionException, InterruptedException;
     public String deleteCRUD(String document_id);
 }

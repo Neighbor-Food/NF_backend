@@ -25,6 +25,7 @@ public class CRUDController {
 
     @PostMapping("/create")
     public String createCRUD(@RequestBody CRUD crud) throws InterruptedException, ExecutionException{
+        System.out.println("실행되었습니다\n\n\n\n");
         return crudService.createCRUD(crud);
     }
 
