@@ -53,12 +53,7 @@ public class MemberService {
         }
     }
 
-    public Member modify(Member member, String password, String name, String push_email, String bank, String bank_account_number){
-        member.setPassword(password);
-        member.setName(name);
-        member.setPush_email(push_email);
-        member.setBank(bank);
-        member.setBank_account_number(bank_account_number);
+    public Member modify(Member member){
         return memberRepository.save(member);
     }
 
