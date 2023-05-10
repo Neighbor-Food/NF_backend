@@ -7,8 +7,8 @@ import java.util.List;
 
 @Data
 @Builder
-public class ResponseDTO {
+public class ResponseListDTO<T> {
     private String result;
     private String error;
-    private Object data;
+    private List<T> data;
 }

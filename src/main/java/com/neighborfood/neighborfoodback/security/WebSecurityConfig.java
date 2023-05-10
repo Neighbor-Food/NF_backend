@@ -32,7 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .authorizeRequests()
-                .antMatchers("/","/api/member/**", "/api/board/** ", "/api/restaurant/**","/h2-console/**").permitAll()
+                .antMatchers("/",
+                        "/api/member/**",
+                        "/api/board/**",
+                        "/api/restaurant/**",
+                        "/h2-console/**").permitAll()
                 .anyRequest()
                 .authenticated();
 
