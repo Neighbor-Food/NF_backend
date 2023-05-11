@@ -3,6 +3,7 @@ package com.neighborfood.neighborfoodback.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,4 +25,9 @@ public class Member {
     private String bank;
     private String bank_account_number;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Board> boardList;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Reply> replyList;
 }

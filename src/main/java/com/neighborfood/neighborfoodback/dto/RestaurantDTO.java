@@ -9,12 +9,10 @@ import lombok.*;
 @Setter
 @Builder
 public class RestaurantDTO {
-    private Integer restaurant_no;
+    private Integer id;
 
     private String name;
+    private String category;
     private String delivery_tip;
     private String min_order_price;
-
-    public RestaurantDTO(Restaurant restaurant) {
-    }
 }

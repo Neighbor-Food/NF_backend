@@ -4,7 +4,9 @@ import com.neighborfood.neighborfoodback.dto.BoardDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseListDTO;
 import com.neighborfood.neighborfoodback.entity.Board;
+import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.service.BoardService;
+import com.neighborfood.neighborfoodback.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private MemberService memberService;
 
     // 게시글 리스트 조회
     @GetMapping("/getList")
@@ -35,10 +39,10 @@ public class BoardController {
         return ResponseEntity.ok().body(responseDTO);
     }
 
-    // 특정 게시글 조회
-    @GetMapping("/get/{no}")
-    public ResponseEntity<?> getBoard(@PathVariable("no") Integer no){
-        Board board = boardService.getBoard(no);
+    // 특정 게시글 조회: 조회할 게시글의 id 값을 받아서 처리
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getBoard(@PathVariable("id") Integer id){
+        Board board = boardService.getBoard(id);
         ResponseDTO responseDTO = ResponseDTO.builder()
                 .result("success")
                 .data(board)
@@ -50,14 +54,25 @@ public class BoardController {
     @PostMapping("/create")
     public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody BoardDTO boardDTO){
         try{
+            // 현재 로그인한 사용자 정보 get
+            Member member = memberService.getMember(email);
+            if (member == null){
+                ResponseDTO responseDTO = ResponseDTO.builder()
+                        .result("fail")
+                        .error("비로그인 사용자입니다.")
+                        .build();
+                return ResponseEntity.badRequest().body(responseDTO);
+            }
+            // dto 토대로 board entity 생성
             Board board = Board.builder()
                     .title(boardDTO.getTitle())
                     .contents(boardDTO.getContents())
                     .category(boardDTO.getCategory())
-                    .location(boardDTO.getLocation())
+                    .latitude(boardDTO.getLatitude())
+                    .longitude(boardDTO.getLongitude())
                     .order_time(boardDTO.getOrder_time())
                     .max_people(boardDTO.getMax_people())
-                    .email(email)
+                    .member(member)
                     .restaurant_no(boardDTO.getRestaurant_no())
                     .build();
             Board registeredBoard = boardService.create(board);
@@ -76,19 +91,21 @@ public class BoardController {
         }
     }
 
-    // 게시글 삭제
-    @GetMapping("/delete/{no}")
-    public ResponseEntity<?> delete(@AuthenticationPrincipal String email, @PathVariable("no") Integer no){
-        Board board = boardService.getBoard(no);
-        // 작성자 다를 경우 처리
-        if (!board.getEmail().equals(email)){
+    // 게시글 삭제: 삭제할 게시글의 id 값을 받아서 처리
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@AuthenticationPrincipal String email, @PathVariable("id") Integer id){
+        Board board = boardService.getBoard(id);
+        // 현재 로그인한 사용자 정보 get
+        Member member = memberService.getMember(email);
+        // 작성자 다를 경우 처리 (게시글의 작성자와 로그인한 사용자 no 값 비교)
+        if (!board.getMember().getMember_no().equals(member.getMember_no())){
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("fail")
                     .error("삭제 권한이 없습니다.")
                     .build();
             return ResponseEntity.badRequest().body(responseDTO);
         }
-        boardService.delete(no);
+        boardService.delete(id);
         ResponseDTO responseDTO = ResponseDTO.builder()
                 .result("success")
                 .build();
