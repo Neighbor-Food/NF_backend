@@ -2,7 +2,6 @@ package com.neighborfood.neighborfoodback.controller;
 
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseListDTO;
-import com.neighborfood.neighborfoodback.dto.RestaurantDTO;
 import com.neighborfood.neighborfoodback.entity.Restaurant;
 import com.neighborfood.neighborfoodback.service.RestaurantService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
 @Slf4j
@@ -36,9 +33,9 @@ public class RestaurantController {
     }
 
     // 특정 음식점 조회
-    @GetMapping("/get/{no}")
-    public ResponseEntity<?> getRestaurant(@PathVariable("no") Integer no){
-        Restaurant restaurant = restaurantService.getRestaurant(no);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getRestaurant(@PathVariable("id") Integer id){
+        Restaurant restaurant = restaurantService.getRestaurant(id);
         ResponseDTO responseDTO = ResponseDTO.builder()
                 .result("success")
                 .data(restaurant)
