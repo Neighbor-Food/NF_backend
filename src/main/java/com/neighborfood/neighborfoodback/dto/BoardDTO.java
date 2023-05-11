@@ -10,17 +10,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class BoardDTO {
-    private Integer board_no;
-
     private String title;
     private String contents;
     private String category;
-    private String location;
-    private String order_time;
-    private String max_people;
-    private LocalDateTime reg_date;
-    private LocalDateTime mod_date;
+    private Integer latitude;
+    private Integer longitude;
+    private LocalDateTime order_time;
+    private Integer max_people;
 
-    private String email;
     private Integer restaurant_no;
 }

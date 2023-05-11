@@ -16,13 +16,15 @@ public class MemberService {
 
     public Member create(Member member) {
         if (member == null || member.getEmail() == null) {
+            // catch exception
+            log.warn("invalid arguments");
             throw new RuntimeException("invalid arguments");
         }
 
         String email = member.getEmail();
-
         // 중복된 이메일 회원가입 처리
         if (memberRepository.existsByEmail(email)) {
+            // catch exception
             log.warn("email already exists {}", email);
             throw new RuntimeException("email already exists");
         }
@@ -36,8 +38,8 @@ public class MemberService {
             Member regMember = member.get();
             memberRepository.deleteById(regMember.getMember_no());
         } else {
-            log.warn("email does not exists");
-            throw new RuntimeException("email does not exists");
+            log.warn("member does not exists");
+            throw new RuntimeException("member does not exists");
         }
 
     }
@@ -58,6 +60,11 @@ public class MemberService {
     }
 
     public Member getByCredentials(String email, String password) {
+        if (email == null || password == null){
+            // catch exception
+            log.warn("invalid arguments");
+            throw new RuntimeException("invalid arguments");
+        }
         return memberRepository.findByEmailAndPassword(email, password);
     }
 }
