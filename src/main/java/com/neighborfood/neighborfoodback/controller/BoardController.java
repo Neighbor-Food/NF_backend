@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -23,46 +24,57 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
     @Autowired
     private MemberService memberService;
 
     // 게시글 리스트 조회
     @GetMapping("/getList")
-    public ResponseEntity<?> getList(){
-        List<Board> list = boardService.getList();
-        // TODO: 2023-05-10 dto list로 변환해서 보내야하나?
-        ResponseListDTO<Board> responseDTO = ResponseListDTO.<Board>builder()
-                .result("success")
-                .data(list)
-                .build();
+    public ResponseEntity<?> getList() {
+        try {
+            List<Board> list = boardService.getList();
+            // TODO: 2023-05-10 dto list 로 변환해서 보내야하나?
+            ResponseListDTO<Board> responseDTO = ResponseListDTO.<Board>builder()
+                    .result("success")
+                    .data(list)
+                    .build();
 
-        return ResponseEntity.ok().body(responseDTO);
+            return ResponseEntity.ok().body(responseDTO);
+
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 
     // 특정 게시글 조회: 조회할 게시글의 id 값을 받아서 처리
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> getBoard(@PathVariable("id") Integer id){
-        Board board = boardService.getBoard(id);
-        ResponseDTO responseDTO = ResponseDTO.builder()
-                .result("success")
-                .data(board)
-                .build();
-        return ResponseEntity.ok().body(responseDTO);
+    @GetMapping("/get/{board_no}")
+    public ResponseEntity<?> getBoard(@PathVariable("board_no") Integer board_no) {
+        try {
+            Board board = boardService.getBoard(board_no);
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(board)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 
     // 게시글 생성
     @PostMapping("/create")
-    public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody BoardDTO boardDTO){
-        try{
+    public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody BoardDTO boardDTO) {
+        try {
             // 현재 로그인한 사용자 정보 get
             Member member = memberService.getMember(email);
-            if (member == null){
-                ResponseDTO responseDTO = ResponseDTO.builder()
-                        .result("fail")
-                        .error("비로그인 사용자입니다.")
-                        .build();
-                return ResponseEntity.badRequest().body(responseDTO);
-            }
             // dto 토대로 board entity 생성
             Board board = Board.builder()
                     .title(boardDTO.getTitle())
@@ -72,8 +84,11 @@ public class BoardController {
                     .longitude(boardDTO.getLongitude())
                     .order_time(boardDTO.getOrder_time())
                     .max_people(boardDTO.getMax_people())
+
+                    .reg_date(LocalDateTime.now())
                     .member(member)
                     .restaurant_no(boardDTO.getRestaurant_no())
+
                     .build();
             Board registeredBoard = boardService.create(board);
             // 만들어진 게시글 응답 (확인용)
@@ -82,7 +97,7 @@ public class BoardController {
                     .data(registeredBoard)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
-        } catch(Exception e) {
+        } catch (Exception e) {
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("fail")
                     .error(e.getMessage())
@@ -92,23 +107,49 @@ public class BoardController {
     }
 
     // 게시글 삭제: 삭제할 게시글의 id 값을 받아서 처리
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@AuthenticationPrincipal String email, @PathVariable("id") Integer id){
-        Board board = boardService.getBoard(id);
-        // 현재 로그인한 사용자 정보 get
-        Member member = memberService.getMember(email);
-        // 작성자 다를 경우 처리 (게시글의 작성자와 로그인한 사용자 no 값 비교)
-        if (!board.getMember().getMember_no().equals(member.getMember_no())){
+    @GetMapping("/delete/{board_no}")
+    public ResponseEntity<?> delete(@AuthenticationPrincipal String email, @PathVariable("board_no") Integer board_no) {
+        try {
+            // 현재 로그인한 사용자 정보 get
+            Member member = memberService.getMember(email);
+            // 게시글 정보 get
+            Board board = boardService.getBoard(board_no);
+            // 작성자 다를 경우 처리 (게시글의 작성자와 로그인한 사용자 no 값 비교)
+            boardService.compareWriter1AndWriter2(board.getMember().getMember_no(), member.getMember_no());
+            // 삭제 후 응답
+            boardService.delete(board_no);
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("fail")
-                    .error("삭제 권한이 없습니다.")
+                    .error(e.getMessage())
                     .build();
             return ResponseEntity.badRequest().body(responseDTO);
         }
-        boardService.delete(id);
-        ResponseDTO responseDTO = ResponseDTO.builder()
-                .result("success")
-                .build();
-        return ResponseEntity.ok().body(responseDTO);
+    }
+
+    @GetMapping("/myBoardList")
+    public ResponseEntity<?> myBoardList(@AuthenticationPrincipal String email) {
+        try {
+            // 현재 로그인한 사용자 정보 get
+            Member member = memberService.getMember(email);
+            // 내가 작성한 게시글 목록 가져오기
+            List<Board> myBoardList = boardService.getMyBoardList(member);
+            // 응답
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(myBoardList)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 }

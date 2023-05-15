@@ -30,4 +30,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
+
+    private Boolean email_auth;
+    public void emailVerifiedSuccess() {
+        this.email_auth = true;
+    }
 }
