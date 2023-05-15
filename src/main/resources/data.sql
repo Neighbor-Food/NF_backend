@@ -7,6 +7,9 @@
 --     min_order_price VARCHAR not null,
 --     primary key (restaurant_no)
 -- );
+insert into member (email, password, name, push_email, bank, bank_account_number, email_auth)
+values ( 'eglechwang@kumoh.ac.kr', '1234', '나이름', '', '국민', '000-0000-000', true );
+
 insert into restaurant (name, category, delivery_tip, min_order_price)
 values ('분식집1', '분식', '2000', '15000');
 insert into restaurant (name, category, delivery_tip, min_order_price)

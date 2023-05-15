@@ -25,3 +25,19 @@ spring:
             ddl-auto: create
         show-sql: true
         defer-datasource-initialization: true
+
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: smtp.jinnn99@gmail.com
+        password: arhoegaxpytjibkm
+        properties:
+            mail:
+                smtp:
+                    starttls:
+                        enable: true
+                        required: true
+                    auth: true
+                    connectiontimeout: 5000
+                    timeout: 5000
+                    writetimeout: 5000
