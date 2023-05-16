@@ -39,4 +39,6 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
+    @OneToMany(mappedBy = "basket", cascade = CascadeType.REMOVE)
+    private List<Basket> basketList;
 }
