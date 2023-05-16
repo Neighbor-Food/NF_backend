@@ -41,6 +41,7 @@ public class MemberController {
                     .push_email(memberDTO.getPush_email())
                     .bank(memberDTO.getBank())
                     .bank_account_number(memberDTO.getBank_account_number())
+                    .email_auth(false)
                     .build();
             Member registeredMember = memberService.create(member);
             // 이메일 인증 메일 send
@@ -195,6 +196,17 @@ public class MemberController {
                     .build();
             return ResponseEntity.badRequest().body(responseDTO);
         }
+    }
+
+    @GetMapping("sendEmailAuth")
+    public ResponseEntity<?> sendEmailAuth(@AuthenticationPrincipal String email){
+        // 이메일 인증 메일 send
+        emailAuthService.createEmailAuthToken(email);
+        ResponseDTO responseDTO = ResponseDTO.builder()
+                .result("success")
+                .data("인증 메일을 보냈습니다.")
+                .build();
+        return ResponseEntity.ok().body(responseDTO);
     }
 
     // 이메일 인증 링크 접속
