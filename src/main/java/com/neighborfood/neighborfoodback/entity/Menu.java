@@ -2,11 +2,15 @@ package com.neighborfood.neighborfoodback.entity;
 
 import lombok.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,4 +27,7 @@ public class Menu {
     private LocalDateTime last_update;
 
     private Integer restaurant_no;
+
+    @OneToMany(mappedBy = "basket", cascade = CascadeType.REMOVE)
+    private List<Basket> basketList;
 }
