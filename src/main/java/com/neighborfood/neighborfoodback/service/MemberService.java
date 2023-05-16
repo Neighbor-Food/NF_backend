@@ -122,6 +122,15 @@ public class MemberService {
         }
     }
 
+    // 인증된 사용자인지 체크
+    public void isAuthMem(Member member) {
+        if (!member.getEmail_auth()) {
+            // catch exception
+            log.warn("Not an authenticated member");
+            throw new RuntimeException("Not an authenticated member");
+        }
+    }
+
     // 이메일 인증
     public void confirmEmailAuth(String token) {
         // 만료되지 않은 토큰이 있다면 토큰 get

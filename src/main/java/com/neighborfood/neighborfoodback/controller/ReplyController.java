@@ -38,6 +38,8 @@ public class ReplyController {
         try {
             // 현재 로그인한 사용자 정보 get
             Member member = memberService.getMember(email);
+            // 이메일 인증이 완료된 사용자인지 체크
+            memberService.isAuthMem(member);
             // 게시글 정보 get
             Board board = boardService.getBoard(replyDTO.getBoard_no());
             // dto 토대로 댓글 entity 생성
