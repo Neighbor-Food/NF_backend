@@ -18,12 +18,12 @@ import java.util.Optional;
 @Service
 @EnableAsync
 @RequiredArgsConstructor
-public class EmailSenderService {
+public class EmailAuthService {
     /* 이메일 작성법
-    * setTo 를 통해 누구에게 보낼지
-    * setSubject 를 통해 제목을
-    * setText 를 통해 내용을 작성할 수 있다.
-    * */
+     * setTo 를 통해 누구에게 보낼지
+     * setSubject 를 통해 제목을
+     * setText 를 통해 내용을 작성할 수 있다.
+     * */
 
     private final JavaMailSender javaMailSender;
 
@@ -37,30 +37,30 @@ public class EmailSenderService {
         javaMailSender.send(email);
     }
 
-    // 이메일 인증 토큰 생성. code 값 리턴
-    public String createEmailAuthToken(String email) {
-
+    // 이메일 인증 토큰 생성
+    public void createEmailAuthToken(String email) {
         EmailAuth emailAuthToken = EmailAuth.createEmailAuthToken(email);
         emailAuthRepository.save(emailAuthToken);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         log.warn("auth service email >>> {}", email);
-        log.warn("auth service code >>> {}", emailAuthToken.getCode());
+//        log.warn("auth service code >>> {}", emailAuthToken.getCode());
         mailMessage.setTo(email);
-        mailMessage.setSubject("회원가입 인증 메일");
-        mailMessage.setText("인증번호: " + emailAuthToken.getCode());
+        mailMessage.setSubject("Neighborfood 인증 메일");
+//        mailMessage.setText("인증번호: " + emailAuthToken.getCode());
+        mailMessage.setText("http://localhost:8080/api/member/confirmEmailAuth?token=" + emailAuthToken.getId());
         sendEmail(mailMessage);
 
-        return emailAuthToken.getCode();
+//        return emailAuthToken.getId();
     }
 
     // 유효한 토큰 가져오기
-    public EmailAuth findByEmailAndExpirationDateAfterAndExpired(String authTokenId) {
-        Optional<EmailAuth> authToken = emailAuthRepository.findByEmailAndExpirationDateAfterAndExpired(authTokenId, LocalDateTime.now(), false);
+    public EmailAuth findByIdAndExpirationDateAfterAndExpired(String authTokenId) {
+        Optional<EmailAuth> authToken = emailAuthRepository.findByIdAndExpirationDateAfterAndExpired(authTokenId, LocalDateTime.now(), false);
         if (authToken.isPresent()) {
             return authToken.get();
         } else {
-            throw new RuntimeException("token not found!");
+            throw new RuntimeException("token not found or expired token");
         }
     }
 }

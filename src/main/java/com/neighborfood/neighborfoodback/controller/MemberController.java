@@ -1,9 +1,12 @@
 package com.neighborfood.neighborfoodback.controller;
 
-import com.neighborfood.neighborfoodback.dto.*;
+import com.neighborfood.neighborfoodback.dto.MemberDTO;
+import com.neighborfood.neighborfoodback.dto.MemberLoginDTO;
+import com.neighborfood.neighborfoodback.dto.MemberModifyDTO;
+import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.security.jwtTokenProvider;
-import com.neighborfood.neighborfoodback.service.EmailSenderService;
+import com.neighborfood.neighborfoodback.service.EmailAuthService;
 import com.neighborfood.neighborfoodback.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,34 +27,29 @@ public class MemberController {
     private jwtTokenProvider tokenProvider;
 
     @Autowired
-    private EmailSenderService emailSenderService;
+    private EmailAuthService emailAuthService;
 
     // 회원가입
     @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody MemberDTO memberDTO) {
         try {
             // dto 토대로 member entity 생성
-            Member member = memberService.getMember(memberDTO.getEmail());
-            member.setPassword(memberDTO.getPassword());
-            member.setName(memberDTO.getName());
-            member.setPush_email(memberDTO.getPush_email());
-            member.setBank(memberDTO.getBank());
-            member.setBank_account_number(memberDTO.getBank_account_number());
-            if (member.getEmail_auth()) {
-                Member registeredMember = memberService.create(member);
-                // 만들어진 회원 정보 응답
-                ResponseDTO responseDTO = ResponseDTO.builder()
-                        .result("success")
-                        .data(registeredMember)
-                        .build();
-                return ResponseEntity.ok().body(responseDTO);
-            } else {
-                ResponseDTO responseDTO = ResponseDTO.builder()
-                        .result("fail")
-                        .data("Authentication is required")
-                        .build();
-                return ResponseEntity.badRequest().body(responseDTO);
-            }
+            Member member = Member.builder()
+                    .email(memberDTO.getEmail())
+                    .password(memberDTO.getPassword())
+                    .name(memberDTO.getName())
+                    .push_email(memberDTO.getPush_email())
+                    .bank(memberDTO.getBank())
+                    .bank_account_number(memberDTO.getBank_account_number())
+                    .build();
+            Member registeredMember = memberService.create(member);
+            emailAuthService.createEmailAuthToken(registeredMember.getEmail());
+            // 만들어진 회원 정보 응답
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(registeredMember)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("fail")
@@ -153,7 +151,7 @@ public class MemberController {
     }
 
     // 이메일 인증 보내기 (이메일이 입력된 상태)
-    @PostMapping("/sendEmailAuth")
+    /*@PostMapping("/sendEmailAuth")
     public ResponseEntity<?> sendEmailAuth(@RequestBody MemberDTO memberDTO) {
         try {
             // dto 토대로 member entity 생성 (현재 email 만 입력되어 인증 버튼 누른 상태)
@@ -177,19 +175,27 @@ public class MemberController {
                     .build();
             return ResponseEntity.badRequest().body(responseDTO);
         }
-    }
+    }*/
 
-    @PostMapping("confirmEmailAuth")
-    public ResponseEntity<?> confirmEmailAuth(@RequestBody ConfirmAuthDTO confirmAuthDTO) {
+    // 이메일 인증 링크 접속
+    @GetMapping("confirmEmailAuth")
+    public ResponseEntity<?> confirmEmailAuth(@RequestParam String token) {
         try {
-            memberService.confirmEmailAuth(confirmAuthDTO.getEmail(), confirmAuthDTO.getCode());
+            memberService.confirmEmailAuth(token);
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data("인증이 완료되었습니다")
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+
+            /*memberService.confirmEmailAuth(confirmAuthDTO.getEmail(), confirmAuthDTO.getCode());
             Member member = memberService.getMember(confirmAuthDTO.getEmail());
             // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
                     .data(member)
                     .build();
-            return ResponseEntity.ok().body(responseDTO);
+            return ResponseEntity.ok().body(responseDTO);*/
         } catch (Exception e) {
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("fail")

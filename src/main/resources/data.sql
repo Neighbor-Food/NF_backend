@@ -8,7 +8,9 @@
 --     primary key (restaurant_no)
 -- );
 insert into member (email, password, name, push_email, bank, bank_account_number, email_auth)
-values ( 'eglechwang@kumoh.ac.kr', '1234', '나이름', '', '국민', '000-0000-000', true );
+values ( 'user01@kumoh.ac.kr', '1234', '김이름', '', '국민', '000-0000-000', true );
+insert into member (email, password, name, push_email, bank, bank_account_number, email_auth)
+values ( 'user02@kumoh.ac.kr', '1234', '나이름', '', '농협', '000-0000-000', true );
 
 insert into restaurant (name, category, delivery_tip, min_order_price)
 values ('분식집1', '분식', '2000', '15000');
