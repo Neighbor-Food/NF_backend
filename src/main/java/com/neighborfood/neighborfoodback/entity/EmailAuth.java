@@ -1,16 +1,15 @@
 package com.neighborfood.neighborfoodback.entity;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.util.Random;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -26,7 +25,7 @@ public class EmailAuth {
     @Column(length = 36)
     private String id;
 
-    private String code; // 인증코드
+//    private String code; // 인증코드
 
     private LocalDateTime expirationDate; // 만료날짜
 
@@ -42,7 +41,7 @@ public class EmailAuth {
         authToken.expired = false;
         authToken.email = email;
 
-        // 인증코드 생성
+        /*// 인증코드 생성
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
         for (int i = 0; i < 8; i++) { // 인증코드 8자리
@@ -63,7 +62,7 @@ public class EmailAuth {
                     break;
             }
         }
-        authToken.code = key.toString();
+        authToken.code = key.toString();*/
 
         return authToken;
     }

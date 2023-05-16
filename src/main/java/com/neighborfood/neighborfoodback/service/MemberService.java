@@ -20,7 +20,7 @@ public class MemberService {
     private EmailAuthRepository emailAuthRepository;
 
     @Autowired
-    private EmailSenderService emailSenderService;
+    private EmailAuthService emailAuthService;
 
     public Member create(Member member) {
         if (member == null || member.getEmail() == null) {
@@ -29,27 +29,37 @@ public class MemberService {
             throw new RuntimeException("invalid arguments");
         }
 
-        Optional<Member> existMember = memberRepository.findByEmail(member.getEmail());
-        if (existMember.isPresent()) {
-            Member realMember = existMember.get();
-            log.warn("real member password >>> {}", realMember.getPassword());
-//            // 중복된 이메일 회원가입 처리: 이메일이 존재하고, 인증이 되었고, 비밀번호도 있음 true, true
-//            if (memberRepository.existsByEmail(realMember.getEmail()) && realMember.getEmail_auth() && realMember.getPassword() != null) {
-//                // catch exception
-//                log.warn("email already exist {}", realMember.getEmail());
-//                throw new RuntimeException("email already exist");
-//            }
-             if (memberRepository.existsByEmail(realMember.getEmail()) && !realMember.getEmail_auth()) {
-                // 이메일 존재하고, 인증되지 않은 회원 true, false
-                log.warn("이메일 인증이 필요합니다.");
-                throw new RuntimeException("Authentication is required");
-            } else {
-                return memberRepository.save(member);
-            }
-        } else {
-            // 새 회원
-            return memberRepository.save(member);
+        // 중복된 이메일 회원가입 처리
+        if (memberRepository.existsByEmail(member.getEmail())) {
+            // catch exception
+            log.warn("email already exist {}", member.getEmail());
+            throw new RuntimeException("email already exist");
         }
+
+        return memberRepository.save(member);
+
+        // 코드인증회원가입방식
+//        Optional<Member> existMember = memberRepository.findByEmail(member.getEmail());
+//        if (existMember.isPresent()) {
+//            Member realMember = existMember.get();
+//            log.warn("real member password >>> {}", realMember.getPassword());
+////            // 중복된 이메일 회원가입 처리: 이메일이 존재하고, 인증이 되었고, 비밀번호도 있음 true, true
+////            if (memberRepository.existsByEmail(realMember.getEmail()) && realMember.getEmail_auth() && realMember.getPassword() != null) {
+////                // catch exception
+////                log.warn("email already exist {}", realMember.getEmail());
+////                throw new RuntimeException("email already exist");
+////            }
+//             if (memberRepository.existsByEmail(realMember.getEmail()) && !realMember.getEmail_auth()) {
+//                // 이메일 존재하고, 인증되지 않은 회원 true, false
+//                log.warn("이메일 인증이 필요합니다.");
+//                throw new RuntimeException("Authentication is required");
+//            } else {
+//                return memberRepository.save(member);
+//            }
+//        } else {
+//            // 새 회원
+//            return memberRepository.save(member);
+//        }
     }
 
     public void delete(String email) {
@@ -85,6 +95,7 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    // 이메일과 비밀번호로 회원 찾기
     public Member getByCredentials(String email, String password) {
         if (email == null || password == null) {
             // catch exception
@@ -101,6 +112,7 @@ public class MemberService {
         return member;
     }
 
+    // 패스워드 비교 함수
     public void comparePass1AndPass2(String password1, String password2) {
         boolean isSame = password1.equals(password2);
         if (!isSame) {
@@ -110,9 +122,18 @@ public class MemberService {
         }
     }
 
+    // 이메일 인증
+    public void confirmEmailAuth(String token) {
+        // 만료되지 않은 토큰이 있다면 토큰 get
+//        EmailAuth findEmailAuth = emailAuthService.findByEmailAndExpirationDateAfterAndExpired(token);
+        EmailAuth findEmailAuth = emailAuthService.findByIdAndExpirationDateAfterAndExpired(token);
+        Member member = getMember(findEmailAuth.getEmail());
+        findEmailAuth.useToken(); // 토큰 만료
+        emailAuthRepository.save(findEmailAuth); // db 에 상태 저장
+        member.emailVerifiedSuccess(); // 인증 true 로 전환
+        memberRepository.save(member); // db 에 상태 저장
 
-    public void confirmEmailAuth(String email, String code) {
-        Optional<EmailAuth> findEmailAuth = emailAuthRepository.findByEmail(email);
+        /*Optional<EmailAuth> findEmailAuth = emailAuthRepository.findByEmail(email);
         if (findEmailAuth.isPresent()) {
             EmailAuth emailAuth = findEmailAuth.get();
             // 인증 코드 비교 처리
@@ -139,6 +160,6 @@ public class MemberService {
         } else {
             log.warn("email auth token does not exist");
             throw new RuntimeException("email auth token does not exist");
-        }
+        }*/
     }
 }
