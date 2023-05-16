@@ -125,13 +125,20 @@ public class MemberService {
     // 이메일 인증
     public void confirmEmailAuth(String token) {
         // 만료되지 않은 토큰이 있다면 토큰 get
-//        EmailAuth findEmailAuth = emailAuthService.findByEmailAndExpirationDateAfterAndExpired(token);
-        EmailAuth findEmailAuth = emailAuthService.findByIdAndExpirationDateAfterAndExpired(token);
-        Member member = getMember(findEmailAuth.getEmail());
-        findEmailAuth.useToken(); // 토큰 만료
-        emailAuthRepository.save(findEmailAuth); // db 에 상태 저장
-        member.emailVerifiedSuccess(); // 인증 true 로 전환
-        memberRepository.save(member); // db 에 상태 저장
+//        EmailAuth findEmailAuth = emailAuthService.findByIdAndExpirationDateAfterAndExpired(token);
+        Optional<EmailAuth> findEmailAuth = emailAuthRepository.findById(token);
+        if (findEmailAuth.isPresent()) {
+            EmailAuth emailAuth = findEmailAuth.get();
+            Member member = getMember(emailAuth.getEmail());
+            // todo: 일단 토큰 만료시간 없애놨음. 그리고 인증완료되면 토큰 삭제
+            /*emailAuth.useToken(); // 토큰 만료
+            emailAuthRepository.save(emailAuth); // db 에 상태 저장*/
+            emailAuthRepository.delete(emailAuth);
+            member.emailVerifiedSuccess(); // 인증 true 로 전환
+            memberRepository.save(member); // db 에 상태 저장
+        } else {
+            throw new RuntimeException("token not found");
+        }
 
         /*Optional<EmailAuth> findEmailAuth = emailAuthRepository.findByEmail(email);
         if (findEmailAuth.isPresent()) {
