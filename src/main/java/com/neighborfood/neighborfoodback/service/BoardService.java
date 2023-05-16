@@ -64,6 +64,16 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
+    public Board modify(Board board){
+        if (board == null){
+            // catch exception
+            log.warn("invalid argument");
+            throw new RuntimeException("invalid argument");
+        }
+
+        return boardRepository.save(board);
+    }
+
     public void compareWriter1AndWriter2(Integer writer1, Integer writer2) {
         boolean isSame = writer1.equals(writer2);
         if (!isSame) {

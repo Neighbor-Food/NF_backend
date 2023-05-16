@@ -43,6 +43,7 @@ public class MemberController {
                     .bank_account_number(memberDTO.getBank_account_number())
                     .build();
             Member registeredMember = memberService.create(member);
+            // 이메일 인증 메일 send
             emailAuthService.createEmailAuthToken(registeredMember.getEmail());
             // 만들어진 회원 정보 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
@@ -83,8 +84,7 @@ public class MemberController {
         }
     }
 
-    // 회원탈퇴 (이메일 받아서 삭제)
-    // todo: 추후 논의 필요 뭐 받아서 삭제할건지
+    // 회원탈퇴 (로그인 되어있는 상태)
     @GetMapping("/out")
     public ResponseEntity<?> out(@AuthenticationPrincipal String email) {
         try {
@@ -176,6 +176,26 @@ public class MemberController {
             return ResponseEntity.badRequest().body(responseDTO);
         }
     }*/
+
+    @GetMapping("isAuthMem")
+    public ResponseEntity<?> isAuthMem(@AuthenticationPrincipal String email){
+        try{
+            Member member = memberService.getMember(email);
+            memberService.isAuthMem(member);
+            // 응답
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(member.getEmail_auth())
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch(Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
 
     // 이메일 인증 링크 접속
     @GetMapping("confirmEmailAuth")

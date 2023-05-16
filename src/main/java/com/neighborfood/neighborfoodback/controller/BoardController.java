@@ -1,6 +1,7 @@
 package com.neighborfood.neighborfoodback.controller;
 
 import com.neighborfood.neighborfoodback.dto.BoardDTO;
+import com.neighborfood.neighborfoodback.dto.BoardModifyDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseListDTO;
 import com.neighborfood.neighborfoodback.entity.Board;
@@ -33,7 +34,6 @@ public class BoardController {
     public ResponseEntity<?> getList() {
         try {
             List<Board> list = boardService.getList();
-            // TODO: 2023-05-10 dto list 로 변환해서 보내야하나?
             ResponseListDTO<Board> responseDTO = ResponseListDTO.<Board>builder()
                     .result("success")
                     .data(list)
@@ -75,6 +75,8 @@ public class BoardController {
         try {
             // 현재 로그인한 사용자 정보 get
             Member member = memberService.getMember(email);
+            // 이메일 인증이 완료된 사용자인지 체크
+            memberService.isAuthMem(member);
             // dto 토대로 board entity 생성
             Board board = Board.builder()
                     .title(boardDTO.getTitle())
@@ -120,6 +122,42 @@ public class BoardController {
             boardService.delete(board_no);
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+
+    // 게시글 수정: board_no부터 전체 데이터 받아서 처리
+    @PostMapping("/modify")
+    public ResponseEntity<?> modify(@AuthenticationPrincipal String email, @RequestBody BoardModifyDTO boardModifyDTO) {
+        try {
+            // 현재 로그인한 사용자 정보 get
+            Member member = memberService.getMember(email);
+            // 게시글 정보 get
+            Board board = boardService.getBoard(boardModifyDTO.getBoard_no());
+            // 작성자 다를 경우 처리 (게시글의 작성자와 로그인한 사용자 no 값 비교)
+            boardService.compareWriter1AndWriter2(board.getMember().getMember_no(), member.getMember_no());
+            // dto 토대로 board entity 수정
+            board.setTitle(boardModifyDTO.getTitle());
+            board.setContents(boardModifyDTO.getContents());
+            board.setCategory(boardModifyDTO.getCategory());
+            board.setLatitude(boardModifyDTO.getLatitude());
+            board.setLongitude(boardModifyDTO.getLongitude());
+            board.setOrder_time(boardModifyDTO.getOrder_time());
+            board.setMax_people(boardModifyDTO.getMax_people());
+            board.setRestaurant_no(boardModifyDTO.getRestaurant_no());
+            board.setMod_date(LocalDateTime.now());
+            Board modifiedBoard = boardService.modify(board);
+            // 만들어진 게시글 응답 (확인용)
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(modifiedBoard)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
