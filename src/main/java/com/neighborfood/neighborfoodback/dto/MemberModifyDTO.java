@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemberModifyDTO {
-    private String password1;
+    private String cur_password;
 
-    private String password2;
+    private String new_password;
 
     private String name;
     private String push_email;

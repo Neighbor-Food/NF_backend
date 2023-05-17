@@ -28,13 +28,13 @@ public class Board {
     private LocalDateTime reg_date;
     private LocalDateTime mod_date;
 
-    @JsonIgnore
     @JoinColumn(name = "member_no")
     @ManyToOne
     private Member member;
 
-    // 수정 필요
-    private Integer restaurant_no;
+    @JoinColumn(name = "restaurant_no")
+    @ManyToOne
+    private Restaurant restaurant;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;

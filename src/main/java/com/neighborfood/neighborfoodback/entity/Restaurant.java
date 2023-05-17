@@ -1,11 +1,10 @@
 package com.neighborfood.neighborfoodback.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,4 +21,8 @@ public class Restaurant {
     private String category;
     private String delivery_tip;
     private String min_order_price;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant")
+    private List<Board> boardList;
 }
