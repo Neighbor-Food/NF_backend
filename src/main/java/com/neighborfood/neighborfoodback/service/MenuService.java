@@ -19,7 +19,7 @@ public class MenuService {
     private MenuRepostory menuRepostory;
 
     public List<Menu> getList() {
-        List<Menu> menuList = menuRepostory.findAllByRestaurantNo();
+        List<Menu> menuList = menuRepostory.findAllByRestaurantNo(null);
         if(menuList.isEmpty()){
             log.warn("menu list is empty");
             throw new RuntimeException("menu list is empty");

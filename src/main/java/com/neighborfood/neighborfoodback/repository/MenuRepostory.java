@@ -1,5 +1,14 @@
 package com.neighborfood.neighborfoodback.repository;
 
-public class MenuRepostory {
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.neighborfood.neighborfoodback.entity.Menu;
+import com.neighborfood.neighborfoodback.entity.Restaurant;
+
+public interface MenuRepostory extends JpaRepository<Menu, Integer>{
+
+    public List<Menu> findAllByRestaurantNo(Restaurant restaurant);
     
 }
