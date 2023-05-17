@@ -27,15 +27,15 @@ public class Basket {
     private Integer menu_quantity;
 
     @JsonIgnore
-    @JoinColumn(name = "board_no")
+    @JoinColumn(nullable = false, name = "board_no")
     private Board board;
 
     @JsonIgnore
-    @JoinColumn(name = "member_no")
+    @JoinColumn(nullable = false, name = "member_no")
     private Member writer;
 
     @JsonIgnore
-    @JoinColumn(name = "menu_no")
+    @JoinColumn(nullable = false, name = "menu_no")
     private Menu menu;
 
 }
