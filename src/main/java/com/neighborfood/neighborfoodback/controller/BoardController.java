@@ -6,8 +6,10 @@ import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseListDTO;
 import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.Member;
+import com.neighborfood.neighborfoodback.entity.Restaurant;
 import com.neighborfood.neighborfoodback.service.BoardService;
 import com.neighborfood.neighborfoodback.service.MemberService;
+import com.neighborfood.neighborfoodback.service.RestaurantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,9 @@ public class BoardController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private RestaurantService restaurantService;
 
     // 게시글 리스트 조회
     @GetMapping("/getList")
@@ -78,6 +83,7 @@ public class BoardController {
             // 이메일 인증이 완료된 사용자인지 체크
             memberService.isAuthMem(member);
             // dto 토대로 board entity 생성
+            Restaurant restaurant = restaurantService.getRestaurant(boardDTO.getRestaurant_no());
             Board board = Board.builder()
                     .title(boardDTO.getTitle())
                     .contents(boardDTO.getContents())
@@ -89,7 +95,7 @@ public class BoardController {
 
                     .reg_date(LocalDateTime.now())
                     .member(member)
-                    .restaurant_no(boardDTO.getRestaurant_no())
+                    .restaurant(restaurant)
 
                     .build();
             Board registeredBoard = boardService.create(board);
@@ -144,6 +150,7 @@ public class BoardController {
             // 작성자 다를 경우 처리 (게시글의 작성자와 로그인한 사용자 no 값 비교)
             boardService.compareWriter1AndWriter2(board.getMember().getMember_no(), member.getMember_no());
             // dto 토대로 board entity 수정
+            Restaurant restaurant = restaurantService.getRestaurant(boardModifyDTO.getRestaurant_no());
             board.setTitle(boardModifyDTO.getTitle());
             board.setContents(boardModifyDTO.getContents());
             board.setCategory(boardModifyDTO.getCategory());
@@ -151,8 +158,10 @@ public class BoardController {
             board.setLongitude(boardModifyDTO.getLongitude());
             board.setOrder_time(boardModifyDTO.getOrder_time());
             board.setMax_people(boardModifyDTO.getMax_people());
-            board.setRestaurant_no(boardModifyDTO.getRestaurant_no());
+
             board.setMod_date(LocalDateTime.now());
+            board.setRestaurant(restaurant);
+
             Board modifiedBoard = boardService.modify(board);
             // 만들어진 게시글 응답 (확인용)
             ResponseDTO responseDTO = ResponseDTO.builder()
