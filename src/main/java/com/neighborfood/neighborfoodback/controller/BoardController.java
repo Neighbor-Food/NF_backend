@@ -87,7 +87,6 @@ public class BoardController {
 
                     .reg_date(LocalDateTime.now())
                     .member(member)
-                    .restaurant_no(boardDTO.getRestaurant_no())
 
                     .build();
             Board registeredBoard = boardService.create(board);

@@ -17,6 +17,4 @@ public class BoardDTO {
     private Integer longitude;
     private LocalDateTime order_time;
     private Integer max_people;
-
-    private Integer restaurant_no;
 }

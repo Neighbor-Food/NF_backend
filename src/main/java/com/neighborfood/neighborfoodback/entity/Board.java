@@ -33,12 +33,14 @@ public class Board {
     @ManyToOne
     private Member member;
 
-    // 수정 필요
-    private Integer restaurant_no;
+    @JoinColumn(name = "restaurant_no")
+    @ManyToOne
+    private Restaurant restaurant;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
-    @OneToMany(mappedBy = "basket", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Basket> basketList;
 }

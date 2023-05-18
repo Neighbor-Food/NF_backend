@@ -7,6 +7,9 @@ spring:
         username: root
         password: qwqw1212
 
+    autoconfigure:
+        exclude: org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration
+
 #    # JPA Setting
 #    jpa:
 #        hibernate:

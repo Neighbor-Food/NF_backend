@@ -31,7 +31,7 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
-    @OneToMany(mappedBy = "basket", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
     private List<Basket> basketList;
 
     private Boolean email_auth;
