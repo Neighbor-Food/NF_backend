@@ -28,6 +28,7 @@ public class Board {
     private LocalDateTime reg_date;
     private LocalDateTime mod_date;
 
+    @JsonIgnore
     @JoinColumn(name = "member_no")
     @ManyToOne
     private Member member;
