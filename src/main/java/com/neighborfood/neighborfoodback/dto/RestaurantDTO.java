@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @Builder
 public class RestaurantDTO {
-    private Integer id;
+    private Integer restaurant_no;
 
     private String name;
     private String category;

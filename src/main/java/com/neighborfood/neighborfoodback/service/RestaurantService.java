@@ -20,9 +20,9 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
-    // 게시글 조회
-    public Restaurant getRestaurant(Integer id){
-        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+    // 레스토랑 get
+    public Restaurant getRestaurant(Integer restaurant_no){
+        Optional<Restaurant> restaurant = restaurantRepository.findById(restaurant_no);
         if (restaurant.isPresent()){
             return restaurant.get();
         } else {

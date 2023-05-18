@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class MenuDTO {
-    private Integer Restaurant_no;
+    private Integer menu_no;
     private String name;
     private Integer price;
     private LocalDateTime last_update;
