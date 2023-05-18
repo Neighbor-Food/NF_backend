@@ -7,5 +7,5 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
-    Optional<Restaurant> findByEmail(Integer restaurant_no);
+    Optional<Restaurant> findById(Integer restaurant_no);
 }

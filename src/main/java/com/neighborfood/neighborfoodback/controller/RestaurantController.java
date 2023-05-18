@@ -23,8 +23,6 @@ public class RestaurantController {
     @GetMapping("/getList")
     public ResponseEntity<?> getList(){
         List<Restaurant> list = restaurantService.getList();
-        // TODO: 2023-05-10 dto list로 변환해서 보내야 하나?
-//        List<RestaurantDTO> dtoList = list.stream().map(RestaurantDTO::new).collect(Collectors.toList());
         ResponseListDTO<Restaurant> responseDTO = ResponseListDTO.<Restaurant>builder()
                 .result("success")
                 .data(list)
