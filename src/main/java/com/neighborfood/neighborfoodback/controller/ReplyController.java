@@ -2,7 +2,6 @@ package com.neighborfood.neighborfoodback.controller;
 
 
 import com.neighborfood.neighborfoodback.dto.ReplyDTO;
-import com.neighborfood.neighborfoodback.dto.ReplyModifyDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.Member;
@@ -34,26 +33,29 @@ public class ReplyController {
 
     // 댓글 생성: contents와 board_no를 받아서 처리
     @PostMapping("/create")
-    public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody ReplyDTO replyDTO) {
+    public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody ReplyDTO.request replyRequestDTO) {
         try {
             // 현재 로그인한 사용자 정보 get
             Member member = memberService.getMember(email);
             // 이메일 인증이 완료된 사용자인지 체크
             memberService.isAuthMem(member);
             // 게시글 정보 get
-            Board board = boardService.getBoard(replyDTO.getBoard_no());
+            Board board = boardService.getBoard(replyRequestDTO.getBoard_no());
             // dto 토대로 댓글 entity 생성
             Reply reply = Reply.builder()
-                    .contents(replyDTO.getContents())
+                    .contents(replyRequestDTO.getContents())
                     .reg_date(LocalDateTime.now())
                     .member(member)
                     .board(board)
                     .build();
+            // create
             Reply registeredReply = replyService.create(reply);
+            // reply info dto 로 변환
+            ReplyDTO.info replyInfoDTO = Reply.toInfoDTO(registeredReply);
             // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(registeredReply)
+                    .data(replyInfoDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
@@ -92,22 +94,25 @@ public class ReplyController {
 
     @PostMapping("/modify")
     public ResponseEntity<?> modify(@AuthenticationPrincipal String email,
-                                    @RequestBody ReplyModifyDTO replyModifyDTO) {
+                                    @RequestBody ReplyDTO.requestModify replyModifyDTO) {
         try {
             // 현재 로그인한 사용자 정보 get
             Member member = memberService.getMember(email);
-            // 댓글 정보 get
+            // 댓글 정보 get. 여기다가 수정할 것
             Reply reply = replyService.getReply(replyModifyDTO.getReply_no());
             // 작성자 다를 경우 처리
             replyService.compareWriter1AndWriter2(reply.getMember().getMember_no(), member.getMember_no());
-            // 수정
+            // reply entity 수정
             reply.setContents(replyModifyDTO.getContents());
             reply.setMod_date(LocalDateTime.now());
+            // 수정
             Reply modifiedReply = replyService.modify(reply);
+            // reply info dto 로 변환
+            ReplyDTO.info replyInfoDTO = Reply.toInfoDTO(modifiedReply);
             // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(modifiedReply)
+                    .data(replyInfoDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
