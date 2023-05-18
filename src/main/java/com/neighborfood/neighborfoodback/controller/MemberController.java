@@ -1,8 +1,6 @@
 package com.neighborfood.neighborfoodback.controller;
 
 import com.neighborfood.neighborfoodback.dto.MemberDTO;
-import com.neighborfood.neighborfoodback.dto.MemberLoginDTO;
-import com.neighborfood.neighborfoodback.dto.MemberModifyDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.security.jwtTokenProvider;
@@ -31,25 +29,29 @@ public class MemberController {
 
     // 회원가입
     @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody MemberDTO memberDTO) {
+    public ResponseEntity<?> join(@RequestBody MemberDTO.request memberRequestDTO) {
         try {
             // dto 토대로 member entity 생성
             Member member = Member.builder()
-                    .email(memberDTO.getEmail())
-                    .password(memberDTO.getPassword())
-                    .name(memberDTO.getName())
-                    .push_email(memberDTO.getPush_email())
-                    .bank(memberDTO.getBank())
-                    .bank_account_number(memberDTO.getBank_account_number())
+                    .email(memberRequestDTO.getEmail())
+                    .password(memberRequestDTO.getPassword())
+                    .name(memberRequestDTO.getName())
+                    .push_email(memberRequestDTO.getPush_email())
+                    .bank(memberRequestDTO.getBank())
+                    .bank_account_number(memberRequestDTO.getBank_account_number())
                     .email_auth(false)
                     .build();
+            // create
             Member registeredMember = memberService.create(member);
+            // dto 로 response 시작
+            // create 된 member entity 를 member info dto 로 변환
+            MemberDTO.info memberInfoDTO = Member.toInfoDTO(registeredMember);
             // 이메일 인증 메일 send
             emailAuthService.createEmailAuthToken(registeredMember.getEmail());
-            // 만들어진 회원 정보 응답
+            // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(registeredMember)
+                    .data(memberInfoDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
@@ -63,7 +65,7 @@ public class MemberController {
 
     // 로그인 (토큰 발행)
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody MemberLoginDTO memberLoginDTO) {
+    public ResponseEntity<?> login(@RequestBody MemberDTO.login memberLoginDTO) {
         try {
             // 넘어온 email, password 정보로 member 정보 get
             Member member = memberService.getByCredentials(memberLoginDTO.getEmail(), memberLoginDTO.getPassword());
@@ -107,10 +109,14 @@ public class MemberController {
     @GetMapping("/getMember")
     public ResponseEntity<?> getMember(@AuthenticationPrincipal String email) {
         try {
+            // 현재 로그인 한 사용자 정보 get
             Member member = memberService.getMember(email);
+            // member info dto 로 변환
+            MemberDTO.info memberInfoDTO = Member.toInfoDTO(member);
+            // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(member)
+                    .data(memberInfoDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
@@ -124,23 +130,26 @@ public class MemberController {
 
     // 회원 정보 수정
     @PostMapping("/modify")
-    public ResponseEntity<?> modify(@AuthenticationPrincipal String email, @RequestBody MemberModifyDTO memberModifyDTO) {
+    public ResponseEntity<?> modify(@AuthenticationPrincipal String email, @RequestBody MemberDTO.requestModify memberModifyDTO) {
         try {
             // 현재 로그인 한 사용자 정보 get
             Member member = memberService.getMember(email);
             // 기존 비밀번호, 입력받은 기존 비밀번호 비교 (다를 경우 exception)
             memberService.comparePass1AndPass2(member.getPassword(), memberModifyDTO.getCur_password());
-            // 수정
+            // member entity 수정
             member.setPassword(memberModifyDTO.getNew_password());
             member.setName(memberModifyDTO.getName());
             member.setPush_email(memberModifyDTO.getPush_email());
             member.setBank(memberModifyDTO.getBank());
             member.setBank_account_number(memberModifyDTO.getBank_account_number());
+            // modify
             Member modifiedMember = memberService.modify(member);
+            // member info dto 로 변환
+            MemberDTO.info memberInfoDTO = Member.toInfoDTO(modifiedMember);
             // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(modifiedMember)
+                    .data(memberInfoDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
@@ -159,10 +168,12 @@ public class MemberController {
             Member member = memberService.getMember(email);
             // 인증된 사용자인지 체크. 아니라면 exception
             memberService.isAuthMem(member);
+            // member info dto 로 변환
+            MemberDTO.info memberInfoDTO = Member.toInfoDTO(member);
             // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(member.getEmail_auth())
+                    .data(memberInfoDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {

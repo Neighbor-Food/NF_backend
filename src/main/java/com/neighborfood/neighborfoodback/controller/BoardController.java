@@ -1,7 +1,6 @@
 package com.neighborfood.neighborfoodback.controller;
 
 import com.neighborfood.neighborfoodback.dto.BoardDTO;
-import com.neighborfood.neighborfoodback.dto.BoardModifyDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseListDTO;
 import com.neighborfood.neighborfoodback.entity.Board;
@@ -38,14 +37,16 @@ public class BoardController {
     @GetMapping("/getList")
     public ResponseEntity<?> getList() {
         try {
+            // 게시글 리스트 가져오기
             List<Board> list = boardService.getList();
-            ResponseListDTO<Board> responseDTO = ResponseListDTO.<Board>builder()
+            // board info dto list 로 변환
+            List<BoardDTO.info> boardInfoDTOList = Board.toInfoDTOList(list);
+            // 응답
+            ResponseListDTO<BoardDTO.info> responseDTO = ResponseListDTO.<BoardDTO.info>builder()
                     .result("success")
-                    .data(list)
+                    .data(boardInfoDTOList)
                     .build();
-
             return ResponseEntity.ok().body(responseDTO);
-
         } catch (Exception e) {
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("fail")
@@ -59,10 +60,14 @@ public class BoardController {
     @GetMapping("/get/{board_no}")
     public ResponseEntity<?> getBoard(@PathVariable("board_no") Integer board_no) {
         try {
+            // 해당 게시글 entity 가져오기
             Board board = boardService.getBoard(board_no);
+            // board info dto 로 변환
+            BoardDTO.detail boardDetailDTO = Board.toDetailDTO(board);
+            // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(board)
+                    .data(boardDetailDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
@@ -76,33 +81,36 @@ public class BoardController {
 
     // 게시글 생성
     @PostMapping("/create")
-    public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody BoardDTO boardDTO) {
+    public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody BoardDTO.request boardRequestDTO) {
         try {
             // 현재 로그인한 사용자 정보 get
             Member member = memberService.getMember(email);
-            // 이메일 인증이 완료된 사용자인지 체크
+            // 이메일 인증이 완료된 사용자인지 체크 아니라면 exception
             memberService.isAuthMem(member);
             // dto 토대로 board entity 생성
-            Restaurant restaurant = restaurantService.getRestaurant(boardDTO.getRestaurant_no());
+            Restaurant restaurant = restaurantService.getRestaurant(boardRequestDTO.getRestaurant_no());
             Board board = Board.builder()
-                    .title(boardDTO.getTitle())
-                    .contents(boardDTO.getContents())
-                    .category(boardDTO.getCategory())
-                    .latitude(boardDTO.getLatitude())
-                    .longitude(boardDTO.getLongitude())
-                    .order_time(boardDTO.getOrder_time())
-                    .max_people(boardDTO.getMax_people())
+                    .title(boardRequestDTO.getTitle())
+                    .contents(boardRequestDTO.getContents())
+                    .category(boardRequestDTO.getCategory())
+                    .latitude(boardRequestDTO.getLatitude())
+                    .longitude(boardRequestDTO.getLongitude())
+                    .order_time(boardRequestDTO.getOrder_time())
+                    .max_people(boardRequestDTO.getMax_people())
 
                     .reg_date(LocalDateTime.now())
                     .member(member)
                     .restaurant(restaurant)
 
                     .build();
+            // create
             Board registeredBoard = boardService.create(board);
+            // board info dto 로 변환
+            BoardDTO.info boardInfoDTO = Board.toInfoDTO(registeredBoard);
             // 만들어진 게시글 응답 (확인용)
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(registeredBoard)
+                    .data(boardInfoDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
@@ -141,11 +149,11 @@ public class BoardController {
 
     // 게시글 수정: board_no부터 전체 데이터 받아서 처리
     @PostMapping("/modify")
-    public ResponseEntity<?> modify(@AuthenticationPrincipal String email, @RequestBody BoardModifyDTO boardModifyDTO) {
+    public ResponseEntity<?> modify(@AuthenticationPrincipal String email, @RequestBody BoardDTO.requestModify boardModifyDTO) {
         try {
             // 현재 로그인한 사용자 정보 get
             Member member = memberService.getMember(email);
-            // 게시글 정보 get
+            // 게시글 정보 get. 여기다가 수정할 것
             Board board = boardService.getBoard(boardModifyDTO.getBoard_no());
             // 작성자 다를 경우 처리 (게시글의 작성자와 로그인한 사용자 no 값 비교)
             boardService.compareWriter1AndWriter2(board.getMember().getMember_no(), member.getMember_no());
@@ -161,12 +169,14 @@ public class BoardController {
 
             board.setMod_date(LocalDateTime.now());
             board.setRestaurant(restaurant);
-
+            // modify
             Board modifiedBoard = boardService.modify(board);
+            // board info dto 로 변환
+            BoardDTO.info boardInfoDTO = Board.toInfoDTO(modifiedBoard);
             // 만들어진 게시글 응답 (확인용)
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(modifiedBoard)
+                    .data(boardInfoDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
@@ -185,10 +195,12 @@ public class BoardController {
             Member member = memberService.getMember(email);
             // 내가 작성한 게시글 목록 가져오기
             List<Board> myBoardList = boardService.getMyBoardList(member);
+            // board info dto list 로 변환
+            List<BoardDTO.info> boardInfoDTOList = Board.toInfoDTOList(myBoardList);
             // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(myBoardList)
+                    .data(boardInfoDTOList)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {
