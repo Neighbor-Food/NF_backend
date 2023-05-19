@@ -20,17 +20,10 @@ import javax.persistence.OneToMany;
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer restaurant_no;
+    private Integer id;
 
     private String name;
     private String category;
-    private String delivery_tip;
-    private String min_order_price;
-
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE)
-    private List<Menu> menuList;
-
-    public Integer getNo() {
-        return restaurant_no;
-    }
+    private Integer delivery_tip;
+    private Integer min_order_price;
 }

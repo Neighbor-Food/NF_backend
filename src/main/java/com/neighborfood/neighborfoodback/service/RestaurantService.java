@@ -13,21 +13,20 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class RestaurantService {
-    @Autowired
     private RestaurantRepository restaurantRepository;
 
-    public List<Restaurant> getList(){
+    @Autowired
+    public RestaurantService(RestaurantRepository repository){
+        this.restaurantRepository = repository;
+    }
+
+    public List<Restaurant> getAllRestaurants() {
         return restaurantRepository.findAll();
     }
 
-    // 레스토랑 get
-    public Restaurant getRestaurant(Integer restaurant_no){
-        Optional<Restaurant> restaurant = restaurantRepository.findById(restaurant_no);
-        if (restaurant.isPresent()){
-            return restaurant.get();
-        } else {
-            log.warn("restaurant does not exists");
-            throw new RuntimeException("restaurant does not exists");
-        }
+    public Optional<Restaurant> getRestaurantById(Integer id) {
+        return restaurantRepository.findById(id);
     }
+
+
 }

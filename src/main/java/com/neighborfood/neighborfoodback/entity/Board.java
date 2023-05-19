@@ -40,7 +40,4 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<Basket> basketList;
 }

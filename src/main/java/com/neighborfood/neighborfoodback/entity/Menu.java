@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,16 +28,16 @@ import java.util.List;
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer menu_no;
+    private Integer id;
+
     private String name;
-    private String price;
+    private Integer price;
+   
     private LocalDateTime last_update;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "restaurant_no")
+    @JoinColumn(nullable = false, name = "restaurant_id")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.REMOVE)
-    private List<Basket> basketList;
 }

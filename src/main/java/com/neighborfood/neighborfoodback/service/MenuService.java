@@ -1,32 +1,29 @@
 package com.neighborfood.neighborfoodback.service;
 
 import java.util.List;
-
-import javax.management.RuntimeErrorException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.neighborfood.neighborfoodback.entity.Menu;
-import com.neighborfood.neighborfoodback.repository.MenuRepostory;
-
-import lombok.extern.slf4j.Slf4j;
+import com.neighborfood.neighborfoodback.repository.MenuRepository;
 
 @Service
-@Slf4j
 public class MenuService {
-    @Autowired
-    private MenuRepostory menuRepostory;
+    private final MenuRepository menuRepository;
 
-    public List<Menu> getList() {
-        List<Menu> menuList = menuRepostory.findAllByRestaurant_no(null);
-        if(menuList.isEmpty()){
-            log.warn("menu list is empty");
-            throw new RuntimeException("menu list is empty");
-        }
-        else{
-            return menuList;
-        }
+    @Autowired
+    public MenuService(MenuRepository menuRepository){
+        this.menuRepository = menuRepository;
     }
-    
+
+    public Optional<Menu> getById(Integer id) {
+        return menuRepository.findById(id);
+    }
+
+    public List<Menu> getByRestaurantId(Integer id) {
+        return menuRepository.findByRestaurantId(id);
+    }
+
 }

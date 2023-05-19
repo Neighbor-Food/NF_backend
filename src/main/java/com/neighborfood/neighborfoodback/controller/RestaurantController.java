@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @Slf4j
@@ -22,7 +23,7 @@ public class RestaurantController {
     // 음식점 리스트 조회
     @GetMapping("/getList")
     public ResponseEntity<?> getList(){
-        List<Restaurant> list = restaurantService.getList();
+        List<Restaurant> list = restaurantService.getAllRestaurants();
         ResponseListDTO<Restaurant> responseDTO = ResponseListDTO.<Restaurant>builder()
                 .result("success")
                 .data(list)
@@ -33,7 +34,7 @@ public class RestaurantController {
     // 특정 음식점 조회
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getRestaurant(@PathVariable("id") Integer id){
-        Restaurant restaurant = restaurantService.getRestaurant(id);
+        Optional<Restaurant> restaurant = restaurantService.getRestaurantById(id);
         ResponseDTO responseDTO = ResponseDTO.builder()
                 .result("success")
                 .data(restaurant)

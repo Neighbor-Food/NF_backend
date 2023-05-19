@@ -31,9 +31,6 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
-    @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
-    private List<Basket> basketList;
-
     private Boolean email_auth;
     public void emailVerifiedSuccess() {
         this.email_auth = true;

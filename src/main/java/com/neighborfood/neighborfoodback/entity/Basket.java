@@ -11,36 +11,34 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer basket_no;
-    private Integer menu_quantity;
+    private Integer id;
+
+    private Integer quantity;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "board_no")
+    @JoinColumn(nullable = false, name = "board_id")
     private Board board;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "member_no")
-    private Member writer;
+    @JoinColumn(nullable = false, name = "member_id")
+    private Board member;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "menu_no")
+    @JoinColumn(nullable = false, name = "menu_id")
     private Menu menu;
-
 }
