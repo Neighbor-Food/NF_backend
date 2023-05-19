@@ -70,7 +70,7 @@ public class Board {
     }
 
     public static BoardDTO.detail toDetailDTO(Board board) {
-        if (board.getReplyList() == null){
+        if (board.getReplyList() == null) {
             return BoardDTO.detail.builder()
                     .board_no(board.getBoard_no())
                     .title(board.getTitle())

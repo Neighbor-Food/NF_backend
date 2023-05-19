@@ -12,6 +12,35 @@ values ( 'user01@kumoh.ac.kr', '1234', '김이름', '', '국민', '000-0000-000'
 insert into member (email, password, name, push_email, bank, bank_account_number, email_auth)
 values ( 'user02@kumoh.ac.kr', '1234', '나이름', '', '농협', '000-0000-000', true );
 
+insert into board (title, contents, category, max_people,member_no)
+values ( 'title1', 'contents1', '한식', 5, 1);
+insert into board (title, contents, category, max_people,member_no)
+values ( 'title2', 'contents1', '한식', 5, 1);
+insert into board (title, contents, category, max_people,member_no)
+values ( 'title1', 'contents1', '분식', 5, 1);
+insert into board (title, contents, category, max_people, member_no)
+values ( 'title2', 'contents1', '분식', 5, 1);
+insert into board (title, contents, category, max_people, member_no)
+values ( 'title1', 'contents1', '중식', 5, 1);
+insert into board (title, contents, category, max_people,  member_no)
+values ( 'title2', 'contents1', '중식', 5, 1);
+insert into board (title, contents, category, max_people,  member_no)
+values ( 'title1', 'contents1', '일식', 5, 1);
+insert into board (title, contents, category, max_people, member_no)
+values ( 'title2', 'contents1', '일식', 5, 1);
+insert into board (title, contents, category, max_people, member_no)
+values ( 'title1', 'contents1', '양식', 5, 1);
+insert into board (title, contents, category, max_people, member_no)
+values ( 'title2', 'contents1', '양식', 5, 1);
+insert into board (title, contents, category, max_people, member_no)
+values ( 'title1', 'contents1', '카페', 5, 1);
+insert into board (title, contents, category, max_people, member_no)
+values ( 'title2', 'contents1', '카페', 5, 1);
+insert into board (title, contents, category, max_people, member_no)
+values ( 'title1', 'contents1', '야식', 5, 1);
+insert into board (title, contents, category, max_people, member_no)
+values ( 'title2', 'contents1', '야식', 5, 1);
+
 insert into restaurant (name, category, delivery_tip, min_order_price)
 values ('분식집1', '분식', '2000', '15000');
 insert into restaurant (name, category, delivery_tip, min_order_price)

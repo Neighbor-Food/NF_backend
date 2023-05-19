@@ -4,7 +4,6 @@ import com.neighborfood.neighborfoodback.entity.Restaurant;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.List;
