@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    // 게시글 리스트 조회
+    // 전체 게시글 리스트 조회
     public List<Board> getList() {
         List<Board> boardList = boardRepository.findAll();
         if (boardList.isEmpty()) {
@@ -28,7 +27,7 @@ public class BoardService {
         return boardList;
     }
 
-    // 게시글 조회
+    // 특정 게시글 조회
     public Board getBoard(Integer id) {
         Optional<Board> board = boardRepository.findById(id);
         if (board.isPresent()) {
@@ -40,14 +39,26 @@ public class BoardService {
         }
     }
 
-    public List<Board> getMyBoardList(Member member){
+    // 내가 작성한 게시글 리스트 조회
+    public List<Board> getMyBoardList(Member member) {
         List<Board> myBoardList = boardRepository.findAllByMember(member);
-        if (myBoardList.isEmpty()){
+        if (myBoardList.isEmpty()) {
             // catch exception
             log.warn("my board list does not exist");
             throw new RuntimeException("my board list does not exist");
         }
         return myBoardList;
+    }
+
+    // 카테고리에 대한 게시글 리스트 조회
+    public List<Board> getListByCategory(String category) {
+        List<Board> boardList = boardRepository.findByCategoryContaining(category);
+        if (boardList.isEmpty()) {
+            // catch exception
+            log.warn("boards do not exist");
+            throw new RuntimeException("boards do not exist");
+        }
+        return boardList;
     }
 
     // 게시글 생성
@@ -60,12 +71,14 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    // 게시글 삭제
     public void delete(Integer id) {
         boardRepository.deleteById(id);
     }
 
-    public Board modify(Board board){
-        if (board == null){
+    // 게시글 수정
+    public Board modify(Board board) {
+        if (board == null) {
             // catch exception
             log.warn("invalid argument");
             throw new RuntimeException("invalid argument");
@@ -74,6 +87,7 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    // 작성자 비교 함수
     public void compareWriter1AndWriter2(Integer writer1, Integer writer2) {
         boolean isSame = writer1.equals(writer2);
         if (!isSame) {

@@ -79,6 +79,29 @@ public class BoardController {
         }
     }
 
+    // 카테고리에 대한 게시글 리스트
+    @GetMapping("/getListByCategory")
+    public ResponseEntity<?> getListByCategory(@RequestParam("category") String category) {
+        try {
+            // 카테고리에 대한 게시글 리스트 가져오기
+            List<Board> list = boardService.getListByCategory(category);
+            // board info dto list 로 변환
+            List<BoardDTO.info> boardInfoDTOList = Board.toInfoDTOList(list);
+            // 응답
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(boardInfoDTOList)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+
     // 게시글 생성
     @PostMapping("/create")
     public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody BoardDTO.request boardRequestDTO) {
