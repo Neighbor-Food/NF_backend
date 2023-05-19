@@ -36,11 +36,12 @@ public class Member {
     private List<Reply> replyList;
 
     private Boolean email_auth;
+
     public void emailVerifiedSuccess() {
         this.email_auth = true;
     }
 
-    public static MemberDTO.info toInfoDTO(Member member){
+    public static MemberDTO.info toInfoDTO(Member member) {
         return MemberDTO.info.builder()
                 .member_no(member.getMember_no())
                 .name(member.getName())

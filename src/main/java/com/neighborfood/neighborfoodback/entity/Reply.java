@@ -1,7 +1,6 @@
 package com.neighborfood.neighborfoodback.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.neighborfood.neighborfoodback.dto.BoardDTO;
 import com.neighborfood.neighborfoodback.dto.ReplyDTO;
 import lombok.*;
 
