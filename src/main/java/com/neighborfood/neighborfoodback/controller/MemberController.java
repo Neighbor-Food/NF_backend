@@ -145,11 +145,11 @@ public class MemberController {
             // modify
             Member modifiedMember = memberService.modify(member);
             // member info dto 로 변환
-            MemberDTO.info memberInfoDTO = Member.toInfoDTO(modifiedMember);
+            MemberDTO.responseModify memberResponseModifyDTO = Member.toResponseModifyDTO(modifiedMember);
             // 응답
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
-                    .data(memberInfoDTO)
+                    .data(memberResponseModifyDTO)
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch (Exception e) {

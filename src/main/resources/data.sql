@@ -8,55 +8,26 @@
 --     primary key (restaurant_no)
 -- );
 insert into member (email, password, name, push_email, bank, bank_account_number, email_auth)
-values ( 'user01@kumoh.ac.kr', '1234', '김이름', '', '국민', '000-0000-000', true );
+values ('user01@kumoh.ac.kr', '1234', '김이름', '', '국민', '000-0000-000', true);
 insert into member (email, password, name, push_email, bank, bank_account_number, email_auth)
-values ( 'user02@kumoh.ac.kr', '1234', '나이름', '', '농협', '000-0000-000', true );
+values ('user02@kumoh.ac.kr', '1234', '나이름', '', '농협', '000-0000-000', true);
 
-insert into board (title, contents, category, max_people,member_no)
-values ( 'title1', 'contents1', '한식', 5, 1);
-insert into board (title, contents, category, max_people,member_no)
-values ( 'title2', 'contents1', '한식', 5, 1);
-insert into board (title, contents, category, max_people,member_no)
-values ( 'title1', 'contents1', '분식', 5, 1);
-insert into board (title, contents, category, max_people, member_no)
-values ( 'title2', 'contents1', '분식', 5, 1);
-insert into board (title, contents, category, max_people, member_no)
-values ( 'title1', 'contents1', '중식', 5, 1);
-insert into board (title, contents, category, max_people,  member_no)
-values ( 'title2', 'contents1', '중식', 5, 1);
-insert into board (title, contents, category, max_people,  member_no)
-values ( 'title1', 'contents1', '일식', 5, 1);
-insert into board (title, contents, category, max_people, member_no)
-values ( 'title2', 'contents1', '일식', 5, 1);
-insert into board (title, contents, category, max_people, member_no)
-values ( 'title1', 'contents1', '양식', 5, 1);
-insert into board (title, contents, category, max_people, member_no)
-values ( 'title2', 'contents1', '양식', 5, 1);
-insert into board (title, contents, category, max_people, member_no)
-values ( 'title1', 'contents1', '카페', 5, 1);
-insert into board (title, contents, category, max_people, member_no)
-values ( 'title2', 'contents1', '카페', 5, 1);
-insert into board (title, contents, category, max_people, member_no)
-values ( 'title1', 'contents1', '야식', 5, 1);
-insert into board (title, contents, category, max_people, member_no)
-values ( 'title2', 'contents1', '야식', 5, 1);
-
+insert into restaurant (name, category, delivery_tip, min_order_price)
+values ('한식집1', '한식', '3000', '20000');
+insert into restaurant (name, category, delivery_tip, min_order_price)
+values ('한식집2', '한식', '3000', '10000');
 insert into restaurant (name, category, delivery_tip, min_order_price)
 values ('분식집1', '분식', '2000', '15000');
 insert into restaurant (name, category, delivery_tip, min_order_price)
 values ('분식집2', '분식', '3000', '10000');
 insert into restaurant (name, category, delivery_tip, min_order_price)
-values ('일식집1', '일식', '3000', '20000');
-insert into restaurant (name, category, delivery_tip, min_order_price)
-values ('일식집2', '일식', '3000', '10000');
-insert into restaurant (name, category, delivery_tip, min_order_price)
 values ('중국집1', '중식', '3000', '10000');
 insert into restaurant (name, category, delivery_tip, min_order_price)
 values ('중국집2', '중식', '3000', '10000');
 insert into restaurant (name, category, delivery_tip, min_order_price)
-values ('한식집1', '한식', '3000', '20000');
+values ('일식집1', '일식', '3000', '20000');
 insert into restaurant (name, category, delivery_tip, min_order_price)
-values ('한식집2', '한식', '3000', '10000');
+values ('일식집2', '일식', '3000', '10000');
 insert into restaurant (name, category, delivery_tip, min_order_price)
 values ('양식집1', '양식', '3000', '20000');
 insert into restaurant (name, category, delivery_tip, min_order_price)
@@ -122,3 +93,33 @@ insert into menu (name, price, restaurant_no)
 values ('우동', '6000', 3);
 insert into menu (name, price, restaurant_no)
 values ('연어덮밥', '6000', 3);
+
+
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title1', 'contents1', '한식', 5, 1, 1);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title2', 'contents1', '한식', 5, 1, 1);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title1', 'contents1', '분식', 5, 1, 3);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title2', 'contents1', '분식', 5, 1, 3);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title1', 'contents1', '중식', 5, 1, 5);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title2', 'contents1', '중식', 5, 1, 5);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title1', 'contents1', '일식', 5, 1, 7);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title2', 'contents1', '일식', 5, 1, 7);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title1', 'contents1', '양식', 5, 1, 9);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title2', 'contents1', '양식', 5, 1, 9);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title1', 'contents1', '카페', 5, 1, 11);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title2', 'contents1', '카페', 5, 1, 11);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title1', 'contents1', '야식', 5, 1, 13);
+insert into board (title, contents, category, max_people, member_no, restaurant_no)
+values ('title2', 'contents1', '야식', 5, 1, 13);

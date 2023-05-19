@@ -32,6 +32,17 @@ public class MemberDTO {
     @Getter
     @Setter
     @Builder
+    public static class responseModify {
+        private String new_password;
+        private String name;
+        private String push_email;
+        private String bank;
+        private String bank_account_number;
+    }
+
+    @Getter
+    @Setter
+    @Builder
     public static class login {
         private String email;
         private String password;

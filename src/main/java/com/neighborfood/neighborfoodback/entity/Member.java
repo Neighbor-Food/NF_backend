@@ -51,4 +51,14 @@ public class Member {
                 .email_auth(member.getEmail_auth())
                 .build();
     }
+
+    public static MemberDTO.responseModify toResponseModifyDTO(Member member) {
+        return MemberDTO.responseModify.builder()
+                .new_password(member.getPassword())
+                .name(member.getName())
+                .push_email(member.getPush_email())
+                .bank(member.getBank())
+                .bank_account_number(member.getBank_account_number())
+                .build();
+    }
 }
