@@ -50,6 +50,10 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Participation> participationList;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Basket> basketList;
+
     public static BoardDTO.info toInfoDTO(Board board) {
         return BoardDTO.info.builder()
                 .board_no(board.getBoard_no())
