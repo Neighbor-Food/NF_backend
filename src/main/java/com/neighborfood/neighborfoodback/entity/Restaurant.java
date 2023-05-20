@@ -25,4 +25,8 @@ public class Restaurant {
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     private List<Board> boardList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant")
+    private List<Menu> menuList;
 }

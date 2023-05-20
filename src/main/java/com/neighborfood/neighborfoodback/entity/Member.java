@@ -35,6 +35,10 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Basket> basketList;
+
     private Boolean email_auth;
 
     public void emailVerifiedSuccess() {
