@@ -78,6 +78,7 @@ public class MemberService {
     public Member getMember(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent()) {
+            System.out.println(member);
             return member.get();
         } else {
             // catch exception

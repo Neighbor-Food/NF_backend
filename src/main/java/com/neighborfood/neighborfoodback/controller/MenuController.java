@@ -33,7 +33,7 @@ public class MenuController {
     // 특정 메뉴 조회
     @GetMapping("/{id}")
     public ResponseEntity<?> getMenu(@PathVariable("id") Integer id){
-        Optional<Menu> menu = menuService.getById(id);
+        Menu menu = menuService.getById(id);
         ResponseDTO responseDTO = ResponseDTO.builder()
                 .result("success")
                 .data(menu)

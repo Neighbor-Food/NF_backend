@@ -18,8 +18,8 @@ public class MenuService {
         this.menuRepository = menuRepository;
     }
 
-    public Optional<Menu> getById(Integer id) {
-        return menuRepository.findById(id);
+    public Menu getById(Integer id) {
+        return menuRepository.findById(id).get();
     }
 
     public List<Menu> getByRestaurantId(Integer id) {
