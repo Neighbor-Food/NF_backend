@@ -8,7 +8,6 @@ import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.entity.Participation;
 import com.neighborfood.neighborfoodback.entity.Restaurant;
-import com.neighborfood.neighborfoodback.repository.BoardRepository;
 import com.neighborfood.neighborfoodback.service.BoardService;
 import com.neighborfood.neighborfoodback.service.MemberService;
 import com.neighborfood.neighborfoodback.service.ParticipationService;
@@ -65,10 +64,14 @@ public class BoardController {
 
     // 특정 게시글 조회: 조회할 게시글의 id 값을 받아서 처리
     @GetMapping("/get/{board_no}")
-    public ResponseEntity<?> getBoard(@PathVariable("board_no") Integer board_no) {
+    public ResponseEntity<?> getBoard(@PathVariable("board_no") Integer board_no, @AuthenticationPrincipal String email) {
         try {
             // 해당 게시글 entity 가져오기
             Board board = boardService.getBoard(board_no);
+            // 현재 로그인한 사용자 정보 get
+            Member member = memberService.getMember(email);
+            // 게시글 참여 여부 알아보기. 미참여 -> exception
+            Participation participation = participationService.findByBoardAndMember(board, member);
             // board detail dto 로 변환
             BoardDTO.detail boardDetailDTO = Board.toDetailDTO(board);
             // 응답
@@ -136,6 +139,13 @@ public class BoardController {
                     .build();
             // create
             Board registeredBoard = boardService.create(board);
+            // 방장도 참여시켜
+            Participation participation = Participation.builder()
+                    .board(registeredBoard)
+                    .member(member)
+                    .build();
+            // create
+            Participation registeredParticipation = participationService.create(participation);
             // board info dto 로 변환
             BoardDTO.info boardInfoDTO = Board.toInfoDTO(registeredBoard);
             // 만들어진 게시글 응답 (확인용)

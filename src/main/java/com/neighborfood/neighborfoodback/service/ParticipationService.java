@@ -1,13 +1,14 @@
 package com.neighborfood.neighborfoodback.service;
 
 import com.neighborfood.neighborfoodback.entity.Board;
+import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.entity.Participation;
 import com.neighborfood.neighborfoodback.repository.ParticipationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -22,7 +23,7 @@ public class ParticipationService {
             throw new RuntimeException("participation is null");
         }
         // 이미 참가중인 유저라면 exception
-        if (participationRepository.existsByMember(participation.getMember())) {
+        if (participationRepository.existsByBoardAndMember(participation.getBoard(), participation.getMember())) {
             // catch exception
             log.warn("Member is already participating : {}", participation.getMember().getEmail());
             throw new RuntimeException("Member is already participating");
@@ -37,6 +38,17 @@ public class ParticipationService {
             throw new RuntimeException("board is null");
         }
         return participationRepository.countByBoard(board);
+    }
+
+    public Participation findByBoardAndMember(Board board, Member member) {
+        Optional<Participation> participation = participationRepository.findByBoardAndMember(board, member);
+        if (participation.isPresent()) {
+            return participation.get();
+        } else {
+            // catch exception
+            log.warn("참여 정보가 없습니다.");
+            throw new RuntimeException("참여 정보가 없습니다.");
+        }
     }
 
 //    public List<Participation> getListByBoard(Board board) {

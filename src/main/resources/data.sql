@@ -20,35 +20,64 @@ values ('user05@kumoh.ac.kr', '1234', '최이름', '', '하나', '000-0000-000',
 
 -- 샘플 게시글 데이터
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title1', 'contents1', '한식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 1);
+values ('title1', 'contents1', '한식','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 1);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title2', 'contents1', '한식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 1);
+values ('title2', 'contents1', '한식','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 1);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title1', 'contents1', '분식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 3);
+values ('title1', 'contents1', '분식','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 3);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title2', 'contents1', '분식','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 3);
+values ('title2', 'contents1', '분식','2023-06-03T14:30', 5, 4,'2023-05-20T10:24:50.5831464', 1, 3);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title1', 'contents1', '중식','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 5);
+values ('title1', 'contents1', '중식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 5);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title2', 'contents1', '중식','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 5);
+values ('title2', 'contents1', '중식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 5);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title1', 'contents1', '일식','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 7);
+values ('title1', 'contents1', '일식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 7);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title2', 'contents1', '일식','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 7);
+values ('title2', 'contents1', '일식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 7);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title1', 'contents1', '양식','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 9);
+values ('title1', 'contents1', '양식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 9);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title2', 'contents1', '양식','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 9);
+values ('title2', 'contents1', '양식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 9);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title1', 'contents1', '카페','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 11);
+values ('title1', 'contents1', '카페','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 11);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title2', 'contents1', '카페','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 11);
+values ('title2', 'contents1', '카페','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 11);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title1', 'contents1', '야식','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 13);
+values ('title1', 'contents1', '야식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 13);
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('title2', 'contents1', '야식','2023-06-03T14:30', 5, 1,'2023-05-20T10:24:50.5831464', 1, 13);
+values ('title2', 'contents1', '야식','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 13);
 
 -- 샘플 참가 데이터
+insert into participation (board_no, member_no)
+values ( 1,1 );
+insert into participation (board_no, member_no)
+values ( 2,1 );
+insert into participation (board_no, member_no)
+values ( 3,1 );
+insert into participation (board_no, member_no)
+values ( 4,1 );
+insert into participation (board_no, member_no)
+values ( 5,1 );
+insert into participation (board_no, member_no)
+values ( 6,1 );
+insert into participation (board_no, member_no)
+values ( 7,1 );
+insert into participation (board_no, member_no)
+values ( 8,1 );
+insert into participation (board_no, member_no)
+values ( 9,1 );
+insert into participation (board_no, member_no)
+values ( 10,1 );
+insert into participation (board_no, member_no)
+values ( 11,1 );
+insert into participation (board_no, member_no)
+values ( 12,1 );
+insert into participation (board_no, member_no)
+values ( 13,1 );
+insert into participation (board_no, member_no)
+values ( 14,1 );
+
 insert into participation (board_no, member_no)
 values ( 1,2 );
 insert into participation (board_no, member_no)
@@ -90,13 +119,13 @@ values ( 14,2 );
 
 -- 샘플 댓글 데이터
 insert into reply (contents, reg_date, member_no, board_no)
-values ( '주문시각 좀만 미룰 수 있나요?', '2023-05-20T10:24:50.5831464', 4, 1  );
+values ( '주문시각 좀만 미룰 수 있나요?', '2023-05-20T10:24:50.5831464', 2, 1  );
 insert into reply (contents, reg_date, member_no, board_no)
-values ( '아직 참가는 안했습니다 미룰 수 있으면 참가할게요', '2023-05-20T10:24:50.5831464', 4, 1  );
+values ( '전화번호 010-0000-0000 입니다. 죄송합니다.', '2023-05-20T10:24:50.5831464', 2, 1  );
 insert into reply (contents, reg_date, member_no, board_no)
 values ( '10분 정도 미룰게요', '2023-05-20T10:24:50.5831464', 1, 1  );
 insert into reply (contents, reg_date, member_no, board_no)
-values ( '감사요', '2023-05-20T10:24:50.5831464', 4, 1  );
+values ( '감사합니다.', '2023-05-20T10:24:50.5831464', 2, 1  );
 insert into reply (contents, reg_date, member_no, board_no)
 values ( '샘플 댓글 데이터', '2023-05-20T10:24:50.5831464', 4, 2  );
 insert into reply (contents, reg_date, member_no, board_no)
