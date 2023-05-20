@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.neighborfood.neighborfoodback.entity.Basket;
 import com.neighborfood.neighborfoodback.entity.Board;
+import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.repository.BasketRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -87,6 +88,16 @@ public class BasketService {
             throw new RuntimeException("basketList do not exist");
         }
         return basketList;
+    }
+
+    public List<Basket> getMyBoardList(Member member) {
+        List<Basket> myBasketList = basketRepository.findAllByMember(member);
+        if (myBasketList.isEmpty()) {
+            // catch exception
+            log.warn("my board list does not exist");
+            throw new RuntimeException("my board list does not exist");
+        }
+        return myBasketList;
     }
     
 }

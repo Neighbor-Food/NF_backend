@@ -71,6 +71,25 @@ public class BasketController {
     }
     //멤버로 읽기
     //나로 읽기
+    @GetMapping("/myBasketList")
+    public ResponseEntity<?> myBasketList(@AuthenticationPrincipal String email){
+        try{
+            Member member = memberService.getMember(email);
+            List<Basket> myBasketList = basketService.getMyBoardList(member);
+            List<BasketDTO.contr> boardInfoDTOList = Basket.toContrDTOList(myBasketList);
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(boardInfoDTOList)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        }catch(Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
     //보드로 읽기
     @GetMapping("/byBoardId/{board_no}")
     public ResponseEntity<?> getBasketListByBoardId(@PathVariable("board_no") Integer board_no){
