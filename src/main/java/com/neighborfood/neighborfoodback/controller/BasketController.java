@@ -70,9 +70,28 @@ public class BasketController {
         }
     }
     //멤버로 읽기
-    //레스토랑으로 읽기
+    //나로 읽기
     //보드로 읽기
-    //메뉴로 읽기
+    @GetMapping("/byBoardId/{board_no}")
+    public ResponseEntity<?> getBasketListByBoardId(@PathVariable("board_no") Integer board_no){
+        try{
+            Board board = boardService.getBoard(board_no);
+            List<Basket> basketList = basketService.getListByBoard(board);
+            List<BasketDTO.contr> basketContrDTOList = Basket.toContrDTOList(basketList);
+
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(basketContrDTOList)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        }catch(Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
 
     //작성
     @PostMapping("/create")

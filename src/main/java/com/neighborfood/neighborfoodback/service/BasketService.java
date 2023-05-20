@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.neighborfood.neighborfoodback.entity.Basket;
+import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.repository.BasketRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -75,6 +76,17 @@ public class BasketService {
     public void delete(Integer id) {
         System.out.println("sssssssssssssss");
         basketRepository.deleteById(id);
+    }
+
+
+    public List<Basket> getListByBoard(Board board) {
+        List<Basket> basketList = basketRepository.findByBoard(board);
+        if (basketList.isEmpty()) {
+            // catch exception
+            log.warn("basketList do not exist");
+            throw new RuntimeException("basketList do not exist");
+        }
+        return basketList;
     }
     
 }
