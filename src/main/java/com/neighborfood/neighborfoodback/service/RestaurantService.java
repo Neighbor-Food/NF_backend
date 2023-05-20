@@ -30,4 +30,8 @@ public class RestaurantService {
             throw new RuntimeException("restaurant does not exists");
         }
     }
+
+    public Restaurant getById(Integer restaurant_no) {
+        return null;
+    }
 }
