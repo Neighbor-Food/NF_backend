@@ -14,23 +14,39 @@ public class BasketDTO {
     @Setter
     public static class request{
         private Integer quantity;
-        private Integer board_no;
-        private Integer menu_no;
+        private Integer boardNo;
+        private Integer menuNo;
     }
+
     @Builder
     @Getter
     @Setter
     public static class requestModify{
-        private Integer basket_no;
+        private Integer basketNo;
         private Integer quantity;
-        private Integer menu_no;
+        private Integer menuNo;
     }
     
+    @Builder
+    @Getter
+    @Setter
     public static class info{
-        private Integer basket_no;
+        private Integer basketNo;
         private MemberDTO.info member;
         private Integer quantity;
         private Board board;
         private Menu menu;
+    }
+
+    
+    @Builder
+    @Getter
+    @Setter
+    public static class contr{
+        private Integer basketNo;
+        private String memberEmail;
+        private Integer quantity;
+        private Integer boardNo;
+        private String menuName;
     }
 }
