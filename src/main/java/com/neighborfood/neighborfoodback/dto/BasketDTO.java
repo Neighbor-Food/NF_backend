@@ -25,6 +25,8 @@ public class BasketDTO {
     @Builder
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class requestModify{
         private Integer basketNo;
         private Integer quantity;
@@ -34,6 +36,8 @@ public class BasketDTO {
     @Builder
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class info{
         private Integer basketNo;
         private MemberDTO.info member;
@@ -46,6 +50,8 @@ public class BasketDTO {
     @Builder
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class contr{
         private Integer basketNo;
         private String memberEmail;

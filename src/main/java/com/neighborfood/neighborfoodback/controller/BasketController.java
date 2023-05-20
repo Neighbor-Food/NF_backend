@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -102,5 +103,32 @@ public class BasketController {
         }
     }
     //수정
+    @PutMapping("/modify")
+    public ResponseEntity<?> modify(@AuthenticationPrincipal String email, @RequestBody BasketDTO.requestModify basketModifyDTO){
+        try{
+            Member member = memberService.getMember(email);
+            Basket basket = basketService.getBasket(basketModifyDTO.getBasketNo());
+            basketService.compareWriter1AndWriter2(basket.getMember().getMember_no(), member.getMember_no());
+
+            Menu menu = menuService.getMenu(basketModifyDTO.getMenuNo());
+            basket.setMenu(menu);
+            basket.setQuantity(basketModifyDTO.getQuantity());
+
+            Basket modifiedBasket = basketService.modify(basket);
+            BasketDTO.contr basketContrDTO = Basket.toContrDTO(modifiedBasket);
+
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(basketContrDTO)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        }catch(Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
     //삭제
 }
