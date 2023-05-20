@@ -28,6 +28,7 @@ public class Board {
     private Integer longitude;
     private LocalDateTime order_time;
     private Integer max_people;
+    private Integer cur_people;
     private LocalDateTime reg_date;
     private LocalDateTime mod_date;
 
@@ -45,6 +46,10 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Participation> participationList;
+
     public static BoardDTO.info toInfoDTO(Board board) {
         return BoardDTO.info.builder()
                 .board_no(board.getBoard_no())
@@ -55,6 +60,7 @@ public class Board {
                 .longitude(board.getLongitude())
                 .order_time(board.getOrder_time())
                 .max_people(board.getMax_people())
+                .cur_people(board.getCur_people())
 
                 .reg_date(board.getReg_date())
                 .mod_date(board.getMod_date())
@@ -70,41 +76,24 @@ public class Board {
     }
 
     public static BoardDTO.detail toDetailDTO(Board board) {
-        if (board.getReplyList() == null) {
-            return BoardDTO.detail.builder()
-                    .board_no(board.getBoard_no())
-                    .title(board.getTitle())
-                    .contents(board.getContents())
-                    .category(board.getCategory())
-                    .latitude(board.getLatitude())
-                    .longitude(board.getLongitude())
-                    .order_time(board.getOrder_time())
-                    .max_people(board.getMax_people())
+        return BoardDTO.detail.builder()
+                .board_no(board.getBoard_no())
+                .title(board.getTitle())
+                .contents(board.getContents())
+                .category(board.getCategory())
+                .latitude(board.getLatitude())
+                .longitude(board.getLongitude())
+                .order_time(board.getOrder_time())
+                .max_people(board.getMax_people())
+                .cur_people(board.getCur_people())
 
-                    .reg_date(board.getReg_date())
-                    .mod_date(board.getMod_date())
+                .reg_date(board.getReg_date())
+                .mod_date(board.getMod_date())
 
-                    .member(Member.toInfoDTO(board.getMember()))
-                    .restaurant(board.getRestaurant())
-                    .build();
-        } else {
-            return BoardDTO.detail.builder()
-                    .board_no(board.getBoard_no())
-                    .title(board.getTitle())
-                    .contents(board.getContents())
-                    .category(board.getCategory())
-                    .latitude(board.getLatitude())
-                    .longitude(board.getLongitude())
-                    .order_time(board.getOrder_time())
-                    .max_people(board.getMax_people())
-
-                    .reg_date(board.getReg_date())
-                    .mod_date(board.getMod_date())
-
-                    .reply(Reply.toInfoDTOList(board.getReplyList()))
-                    .member(Member.toInfoDTO(board.getMember()))
-                    .restaurant(board.getRestaurant())
-                    .build();
-        }
+                .participant(Participation.toInfoDTOList(board.getParticipationList()))
+                .reply(Reply.toInfoDTOList(board.getReplyList()))
+                .member(Member.toInfoDTO(board.getMember()))
+                .restaurant(board.getRestaurant())
+                .build();
     }
 }
