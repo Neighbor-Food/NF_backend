@@ -52,6 +52,7 @@ public class BoardDTO {
         private Integer longitude;
         private LocalDateTime order_time;
         private Integer max_people;
+        private Integer cur_people;
 
         private LocalDateTime reg_date;
         private LocalDateTime mod_date;
@@ -72,10 +73,12 @@ public class BoardDTO {
         private Integer longitude;
         private LocalDateTime order_time;
         private Integer max_people;
+        private Integer cur_people;
 
         private LocalDateTime reg_date;
         private LocalDateTime mod_date;
 
+        private List<ParticipationDTO.info> participant;
         private List<ReplyDTO.info> reply;
         private MemberDTO.info member;
         private Restaurant restaurant;
