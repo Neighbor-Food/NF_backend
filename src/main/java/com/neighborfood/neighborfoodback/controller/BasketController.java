@@ -2,6 +2,7 @@ package com.neighborfood.neighborfoodback.controller;
 
 import java.util.List;
 
+import org.hibernate.engine.jdbc.batch.spi.BatchKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +63,25 @@ public class BasketController {
                     .build();
             return ResponseEntity.ok().body(responseDTO);
         } catch(Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+    //id로 읽기
+    @GetMapping("/{basket_no}")
+    public ResponseEntity<?> getBakset(@PathVariable("basket_no") Integer basket_no){
+        try{
+            Basket basket = basketService.getMenu(basket_no);
+            BasketDTO.contr basketContrDTOL = Basket.toContrDTO(basket);
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(basketContrDTOL)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        }catch(Exception e){
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("fail")
                     .error(e.getMessage())

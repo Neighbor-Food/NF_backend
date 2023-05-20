@@ -99,5 +99,16 @@ public class BasketService {
         }
         return myBasketList;
     }
+
+    public Basket getMenu(Integer basket_no) {
+        Optional<Basket> basket = basketRepository.findById(basket_no);
+        if (basket.isPresent()) {
+            return basket.get();
+        } else {
+            // catch exception
+            log.warn("basket does not exist");
+            throw new RuntimeException("basket does not exist");
+        }
+    }
     
 }
