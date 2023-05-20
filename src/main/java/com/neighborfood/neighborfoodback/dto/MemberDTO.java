@@ -3,6 +3,7 @@ package com.neighborfood.neighborfoodback.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class MemberDTO {
@@ -33,7 +34,6 @@ public class MemberDTO {
     @Getter
     @Setter
     @Builder
-    @AllArgsConstructor
     public static class responseModify {
         private String new_password;
         private String name;
@@ -45,6 +45,8 @@ public class MemberDTO {
     @Getter
     @Setter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class login {
         private String email;
         private String password;
