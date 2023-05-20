@@ -18,6 +18,97 @@ values ('user04@kumoh.ac.kr', '1234', '이이름', '', '우리', '000-0000-000',
 insert into member (email, password, name, push_email, bank, bank_account_number, email_auth)
 values ('user05@kumoh.ac.kr', '1234', '최이름', '', '하나', '000-0000-000', true);
 
+--식당 데이터
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (1, '제주집', '육류,고기', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (2, '하루', '일식집', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (3, '선산곱창', '곱창,막창', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (4, '구미가당김', '카페', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (5, '와촌식육식당 옥계점', '육류,고기', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (6, '제주집', '육류,고기', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (7, '이오카츠 구미옥계점', '돈까스,우동', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (8, '라쿵푸마라탕 구미옥계5호점', '중국요리', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (9, '스위시 옥계점', '초밥,롤', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (10, '서민찜닭 옥계점', '닭요리', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (11, '초심', '초밥,롤', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (12, '신대광반점', '중국요리', 0.0, 0.0);
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (13, '레브', '양식', 0.0, 0.0);
+
+--메뉴데이터
+USE uracle_kit;
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (1, '제주오겹살 (150g)', '1', 11900.0, "2023-05-08 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (2, '제주목살 (150g)', '1', 11900.0, "2023-05-08 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (3, '신국물갈비 (250g)', '1', 13900.0, "2023-05-08 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (4, '김치말이국수', '1', 4000.0, "2023-05-08 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (5, '활어회(소)', '2', 60000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (6, '활어회(중)', '2', 80000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (7, '활어회(대)', '2', 100000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (8, '활어회(특대)', '2', 120000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (9, '특물회(점심메뉴)', '2', 20000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (10, '하루정식(점심메뉴)', '2', 20000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (11, '특초밥(점심메뉴)', '2', 17000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (12, '우럭탕1인(점심메뉴)', '2', 20000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (13, '도다리(소)', '2', 70000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (14, '게르치(소)', '2', 90000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (15, '줄돔(소)', '2', 70000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (16, '참돔(소)', '2', 70000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (17, '농어(소)', '2', 70000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (18, '모둠해산물', '2', 70000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (19, '물회(점심메뉴)', '2', 15000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (20, '간장게장정식(점심메뉴)', '2', 20000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (21, '회덮밥(점심메뉴)', '2', 12000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (22, '초밥10개(점심메뉴)', '2', 12000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (23, '전복회', '2', 25000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (24, '새우튀김', '2', 15000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (25, '곱창전골 (1인분)', '3', 8000.0, "2023-05-16 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (26, '수비드스테이크', '4', 30000.0, "2023-04-19 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (27, '감베로니크림파스타', '4', 15000.0, "2023-04-19 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (28, '감베로니오일파스타', '4', 14000.0, "2023-04-19 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (29, '관자스테이크', '4', 22000.0, "2023-04-19 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (30, '토마토볼로네제', '4', 14000.0, "2023-04-19 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (31, '샌드위치', '4', 11000.0, "2023-04-19 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (32, '와촌돼지찌개', '5', 9000.0, "2023-05-11 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (33, '와촌삼겹살(150g) 2인분', '5', 10000.0, "2023-05-11 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (34, '와촌불고기(300g)', '5', 13000.0, "2023-05-11 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (35, '와촌치즈불고기(300g)', '5', 14000.0, "2023-05-11 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (36, '제주오겹살 (150g)', '6', 11900.0, "2023-05-08 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (37, '제주목살 (150g)', '6', 11900.0, "2023-05-08 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (38, '신국물갈비 (250g)', '6', 13900.0, "2023-05-08 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (39, '김치말이국수', '6', 4000.0, "2023-05-08 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (40, '베이직 돈까스', '7', 9500.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (41, '치즈돈까스', '7', 9900.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (42, '고구마돈까스', '7', 9900.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (43, '철판치즈돈까스', '7', 12900.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (44, '치즈떡볶이 돈까스', '7', 9500.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (45, '마라탕 (100g)', '8', 1600.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (46, '마라샹궈 (100g)', '8', 3000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (47, '마라빤 (100g)', '8', 3000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (48, '마라훈둔', '8', 8000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (49, '샤오룽보', '8', 8000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (50, '스위시 모둠 도시락', '9', 13500.0, "2023-01-18 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (51, '커플팩', '9', 25000.0, "2023-01-18 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (52, '서민찜닭 (소)', '10', 16000.0, "2022-11-11 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (53, '묵은지찜닭 (소)', '10', 20000.0, "2022-11-11 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (54, '서민순살찜닭 (소)', '10', 18000.0, "2022-11-11 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (55, '묵은지순살찜닭 (소)', '10', 22000.0, "2022-11-11 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (56, '옛날제육볶음 (소)', '10', 19000.0, "2022-11-11 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (57, '모듬 사시미 (소)', '11', 20000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (58, '광어초밥 (1ps)', '11', 1800.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (59, '광어지느러미초밥 (1ps)', '11', 2000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (60, '밀치초밥 (1ps)', '11', 1500.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (61, '밀치뱃살초밥 (1ps)', '11', 2000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (62, '연어초밥 (1ps)', '11', 1500.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (63, '짜장면', '12', 5000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (64, '짬뽕', '12', 6000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (65, '볶음밥', '12', 6000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (66, '중화비빔밥', '12', 8000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (67, '탕수육(소)', '12', 18000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (68, '문어', '13', 23000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (69, '감자튀김', '13', 8000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (70, '가지', '13', 14000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (71, '한우 채끝', '13', 61000.0, "2022-11-12 00:00:00");
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (72, '커리파스타', '13', 22000.0, "2022-11-12 00:00:00");
+
+
 -- 샘플 게시글 데이터
 insert into board (title, contents, category, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
 values ('title1', 'contents1', '한식','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 1);
@@ -152,3 +243,12 @@ insert into reply (contents, reg_date, member_no, board_no)
 values ( '샘플 댓글 데이터', '2023-05-20T10:24:50.5831464', 4, 13 );
 insert into reply (contents, reg_date, member_no, board_no)
 values ( '샘플 댓글 데이터', '2023-05-20T10:24:50.5831464', 4, 14 );
+
+insert into basket (quantity, board_no, member_no, menu_no)
+values ( 3, 1, 1, 1 );
+insert into basket (quantity, board_no, member_no, menu_no)
+values ( 4, 1, 2, 2 );
+insert into basket (quantity, board_no, member_no, menu_no)
+values ( 2, 1, 3, 4 );
+insert into basket (quantity, board_no, member_no, menu_no)
+values ( 3, 2, 1, 1 );
