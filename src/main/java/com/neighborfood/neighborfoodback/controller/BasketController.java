@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -131,4 +133,25 @@ public class BasketController {
         }
     }
     //삭제
+    @DeleteMapping("/delete/{basket_no}")
+    public ResponseEntity<?> delete(@AuthenticationPrincipal String email, @PathVariable("basket_no") Integer basket_no){
+        try{
+            Member member = memberService.getMember(email);
+            Basket basket = basketService.getBasket(basket_no);
+            boardService.compareWriter1AndWriter2(basket.getMember().getMember_no(), member.getMember_no());
+
+            basketService.delete(basket_no);
+
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        }catch(Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
 }

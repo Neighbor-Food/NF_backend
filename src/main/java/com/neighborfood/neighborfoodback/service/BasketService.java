@@ -41,7 +41,7 @@ public class BasketService {
         }
         return basketRepository.save(basket);
     }
-
+    //조회
     public Basket getBasket(Integer basketNo) {
         Optional<Basket> basket = basketRepository.findById(basketNo);
         if (basket.isPresent()) {
@@ -52,7 +52,7 @@ public class BasketService {
             throw new RuntimeException("basket does not exist");
         }
     }
-
+    //작성자 비교
     public void compareWriter1AndWriter2(Integer writer1, Integer writer2) {
         boolean isSame = writer1.equals(writer2);
         if (!isSame) {
@@ -61,7 +61,7 @@ public class BasketService {
             throw new RuntimeException("writer1 and writer2 are not same");
         }
     }
-
+    //수정
     public Basket modify(Basket basket) {
         if (basket == null) {
             // catch exception
@@ -70,6 +70,11 @@ public class BasketService {
         }
 
         return basketRepository.save(basket);
+    }
+    //삭제
+    public void delete(Integer id) {
+        System.out.println("sssssssssssssss");
+        basketRepository.deleteById(id);
     }
     
 }
