@@ -48,6 +48,7 @@ public class Member {
     public static MemberDTO.info toInfoDTO(Member member) {
         return MemberDTO.info.builder()
                 .member_no(member.getMember_no())
+                .email(member.getEmail())
                 .name(member.getName())
                 .push_email(member.getPush_email())
                 .bank(member.getBank())
