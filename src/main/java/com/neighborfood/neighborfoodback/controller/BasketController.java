@@ -212,4 +212,30 @@ public class BasketController {
             return ResponseEntity.badRequest().body(responseDTO);
         }
     }
+    //결제 완료 
+    @PutMapping("/completePayment/{basket_no}")
+    public ResponseEntity<?> completePayment(@AuthenticationPrincipal String email, @PathVariable("basket_no") Integer basket_no){
+        try{
+            Member member = memberService.getMember(email);
+            Basket basket = basketService.getBasket(basket_no);
+            basketService.compareWriter1AndWriter2(basket.getMember().getMember_no(), member.getMember_no());
+
+            basket.setConfirmed(!basket.isConfirmed());
+
+            Basket modifiedBasket = basketService.modify(basket);
+            BasketDTO.contr basketContrDTO = Basket.toContrDTO(modifiedBasket);
+
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(basketContrDTO)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        }catch(Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
 }

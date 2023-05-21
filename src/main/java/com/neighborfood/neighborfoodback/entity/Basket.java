@@ -35,6 +35,7 @@ public class Basket {
     private Integer basket_no;
 
     private Integer quantity;
+    private boolean confirmed;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -58,6 +59,7 @@ public class Basket {
                 .quantity(basket.getQuantity())
                 .board(basket.getBoard())
                 .menu(basket.getMenu())
+                .confirmed(basket.isConfirmed())
                 .build();
 
     }
@@ -68,6 +70,7 @@ public class Basket {
                 .quantity(basket.getQuantity())
                 .boardNo(basket.getBoard().getBoard_no())
                 .menuName(basket.getMenu().getName())
+                .confirmed(basket.isConfirmed())
                 .build();
     }
 
