@@ -244,11 +244,11 @@ values ( '샘플 댓글 데이터', '2023-05-20T10:24:50.5831464', 4, 13 );
 insert into reply (contents, reg_date, member_no, board_no)
 values ( '샘플 댓글 데이터', '2023-05-20T10:24:50.5831464', 4, 14 );
 
-insert into basket (quantity, board_no, member_no, menu_no)
-values ( 3, 1, 1, 1 );
-insert into basket (quantity, board_no, member_no, menu_no)
-values ( 4, 1, 2, 2 );
-insert into basket (quantity, board_no, member_no, menu_no)
-values ( 2, 1, 3, 4 );
-insert into basket (quantity, board_no, member_no, menu_no)
-values ( 3, 2, 1, 1 );
+insert into basket (quantity, board_no, member_no, menu_no, confirmed)
+values ( 3, 1, 1, 1, 0 );
+insert into basket (quantity, board_no, member_no, menu_no, confirmed)
+values ( 4, 1, 2, 2, 0 );
+insert into basket (quantity, board_no, member_no, menu_no, confirmed)
+values ( 2, 1, 3, 4, 0 );
+insert into basket (quantity, board_no, member_no, menu_no, confirmed)
+values ( 3, 2, 1, 1, 0 );
