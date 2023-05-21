@@ -1,6 +1,5 @@
 package com.neighborfood.neighborfoodback.service;
 
-import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.Restaurant;
 import com.neighborfood.neighborfoodback.repository.RestaurantRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -16,18 +15,36 @@ public class RestaurantService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-    public List<Restaurant> getList(){
-        return restaurantRepository.findAll();
+    public List<Restaurant> getList() {
+        List<Restaurant> restaurantList = restaurantRepository.findAll();
+        if (restaurantList.isEmpty()) {
+            // catch exception
+            log.warn("restaurants do not exist");
+            throw new RuntimeException("restaurants do not exist");
+        }
+        return restaurantList;
     }
 
     // 게시글 조회
-    public Restaurant getRestaurant(Integer id){
+    public Restaurant getRestaurant(Integer id) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-        if (restaurant.isPresent()){
+        if (restaurant.isPresent()) {
             return restaurant.get();
         } else {
-            log.warn("restaurant does not exists");
-            throw new RuntimeException("restaurant does not exists");
+            // catch exception
+            log.warn("restaurant does not exist");
+            throw new RuntimeException("restaurant does not exist");
         }
+    }
+
+    // 카테고리에 대한 음식점 리스트 조회
+    public List<Restaurant> getListByCategory(String category) {
+        List<Restaurant> restaurantList = restaurantRepository.findByCategoryContaining(category);
+        if (restaurantList.isEmpty()) {
+            // catch exception
+            log.warn("restaurants do not exist");
+            throw new RuntimeException("restaurants do not exist");
+        }
+        return restaurantList;
     }
 }

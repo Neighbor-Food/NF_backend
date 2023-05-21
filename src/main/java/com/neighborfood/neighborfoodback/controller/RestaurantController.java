@@ -2,6 +2,7 @@ package com.neighborfood.neighborfoodback.controller;
 
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseListDTO;
+import com.neighborfood.neighborfoodback.dto.RestaurantDTO;
 import com.neighborfood.neighborfoodback.entity.Restaurant;
 import com.neighborfood.neighborfoodback.service.RestaurantService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,25 +22,70 @@ public class RestaurantController {
 
     // 음식점 리스트 조회
     @GetMapping("/getList")
-    public ResponseEntity<?> getList(){
-        List<Restaurant> list = restaurantService.getList();
-        // TODO: 2023-05-10 dto list로 변환해서 보내야 하나?
-//        List<RestaurantDTO> dtoList = list.stream().map(RestaurantDTO::new).collect(Collectors.toList());
-        ResponseListDTO<Restaurant> responseDTO = ResponseListDTO.<Restaurant>builder()
-                .result("success")
-                .data(list)
-                .build();
-        return ResponseEntity.ok().body(responseDTO);
+    public ResponseEntity<?> getList() {
+        try {
+            // 음식점 리스트 가져오기
+            List<Restaurant> list = restaurantService.getList();
+            // restaurant info dto list 로 변환
+            List<RestaurantDTO.info> restaurantInfoDTOList = Restaurant.toInfoDTOList(list);
+            // 응답
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(restaurantInfoDTOList)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 
     // 특정 음식점 조회
     @GetMapping("/get/{id}")
-    public ResponseEntity<?> getRestaurant(@PathVariable("id") Integer id){
-        Restaurant restaurant = restaurantService.getRestaurant(id);
-        ResponseDTO responseDTO = ResponseDTO.builder()
-                .result("success")
-                .data(restaurant)
-                .build();
-        return ResponseEntity.ok().body(responseDTO);
+    public ResponseEntity<?> getRestaurant(@PathVariable("id") Integer id) {
+        try {
+            // 음식점 가져오기
+            Restaurant restaurant = restaurantService.getRestaurant(id);
+            // restaurant info dto 로 변환
+            RestaurantDTO.info restaurantInfoDTO = Restaurant.toInfoDTO(restaurant);
+            // 응답
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(restaurantInfoDTO)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+
+    // 카테고리 별 음식점 리스트 조회
+    @GetMapping("/getListByCategory")
+    public ResponseEntity<?> getListByCategory(@RequestParam("category") String category) {
+        try {
+            // 카테고리에 대한 게시글 리스트 가져오기
+            List<Restaurant> list = restaurantService.getListByCategory(category);
+            // board info dto list 로 변환
+            List<RestaurantDTO.info> restaurantInfoDTOList = Restaurant.toInfoDTOList(list);
+            // 응답
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .data(restaurantInfoDTOList)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 }
