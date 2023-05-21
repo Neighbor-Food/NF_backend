@@ -72,6 +72,7 @@ public class Basket {
                 .boardNo(basket.getBoard().getBoard_no())
                 .menuName(basket.getMenu().getName())
                 .confirmed(basket.isConfirmed())
+                .menuPrice(basket.getMenu().getPrice())
                 .build();
     }
 

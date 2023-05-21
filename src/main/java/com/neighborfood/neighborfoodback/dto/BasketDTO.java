@@ -45,6 +45,7 @@ public class BasketDTO {
         private Board board;
         private Menu menu;
         private boolean confirmed;
+        private Integer menuPrice;
     }
 
     
@@ -61,5 +62,6 @@ public class BasketDTO {
         private Integer boardNo;
         private String menuName;
         private boolean confirmed;
+        private Integer menuPrice;
     }
 }
