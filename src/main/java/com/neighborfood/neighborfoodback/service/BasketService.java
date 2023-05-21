@@ -75,7 +75,6 @@ public class BasketService {
     }
     //삭제
     public void delete(Integer id) {
-        System.out.println("sssssssssssssss");
         basketRepository.deleteById(id);
     }
 
@@ -108,6 +107,13 @@ public class BasketService {
             // catch exception
             log.warn("basket does not exist");
             throw new RuntimeException("basket does not exist");
+        }
+    }
+
+    public void deleteList(List<Basket> basketList) {
+        for(Basket basket : basketList){
+            Integer basket_no = basket.getBasket_no();
+            basketRepository.deleteById(basket_no);
         }
     }
     
