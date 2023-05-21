@@ -67,6 +67,7 @@ public class Basket {
         return BasketDTO.contr.builder()
                 .basketNo(basket.getBasket_no())
                 .memberEmail(basket.getMember().getEmail())
+                .memberName(basket.getMember().getName())
                 .quantity(basket.getQuantity())
                 .boardNo(basket.getBoard().getBoard_no())
                 .menuName(basket.getMenu().getName())

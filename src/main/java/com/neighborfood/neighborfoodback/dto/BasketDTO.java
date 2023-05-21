@@ -32,15 +32,6 @@ public class BasketDTO {
         private Integer quantity;
         private Integer menuNo;
     }
-
-    @Builder
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class requestConfirmed{
-        private Integer basketNo;
-    }
     
     @Builder
     @Getter
@@ -65,6 +56,7 @@ public class BasketDTO {
     public static class contr{
         private Integer basketNo;
         private String memberEmail;
+        private String memberName;
         private Integer quantity;
         private Integer boardNo;
         private String menuName;
