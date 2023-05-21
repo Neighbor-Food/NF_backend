@@ -263,6 +263,7 @@ public class BasketController {
         try{
             Member member = memberService.getMember(email);
             Basket basket = basketService.getBasket(basket_no);
+
             basketService.compareWriter1AndWriter2(basket.getMember().getMember_no(), member.getMember_no());
 
             basket.setConfirmed(!basket.isConfirmed());
