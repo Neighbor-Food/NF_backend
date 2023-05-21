@@ -1,18 +1,19 @@
 package com.neighborfood.neighborfoodback.dto;
 
-import com.neighborfood.neighborfoodback.entity.Restaurant;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@Builder
 public class RestaurantDTO {
-    private Integer id;
+    @Builder
+    @Getter
+    @Setter
+    public static class info {
+        private Integer id;
 
-    private String name;
-    private String category;
-    private String delivery_tip;
-    private String min_order_price;
+        private String name;
+        private String category;
+        private String delivery_tip;
+        private String min_order_price;
+    }
 }
