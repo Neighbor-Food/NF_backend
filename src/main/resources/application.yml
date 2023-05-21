@@ -6,7 +6,7 @@ spring:
         url: jdbc:mysql://localhost:3306/uracle_kit?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8
         username: root
         password: qwqw1212
-
+        initialization-mode: always
     autoconfigure:
         exclude: org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration
 
@@ -18,16 +18,16 @@ spring:
 #    sql:
 #        init:
 #            mode: always
-
     jpa:
         database: mysql
         show-sql: true
         hibernate:
-            ddl-auto: update
+            ddl-auto: create
         properties:
             hibernate:
                 show_sql: true
                 format_sql: true
+        defer-datasource-initialization: true
 
     mail:
         host: smtp.gmail.com
