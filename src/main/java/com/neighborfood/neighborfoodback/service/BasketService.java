@@ -116,5 +116,17 @@ public class BasketService {
             basketRepository.deleteById(basket_no);
         }
     }
+
+    public List<Basket> getListByBoardAndMember(Board board, Member member) {
+        //성능을 고려했을때 이후 수정 필요성 있음
+        List<Basket> basketListByboard = basketRepository.findByBoard(board);
+        List<Basket> basketListByMember = basketRepository.findAllByMember(member);
+
+        List<Basket> basketList = basketListByboard.stream().filter(basketListByMember::contains).toList();
+
+        return basketList;
+
+    
+    }
     
 }

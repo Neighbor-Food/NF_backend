@@ -212,6 +212,7 @@ public class BasketController {
             return ResponseEntity.badRequest().body(responseDTO);
         }
     }
+    //board의 모든 basket 삭제
     @DeleteMapping("/deleteByBoradNo/{board_no}")
     public ResponseEntity<?> deleteByBoardNo(@AuthenticationPrincipal String email, @PathVariable("board_no") Integer board_no){
         try{
@@ -219,6 +220,28 @@ public class BasketController {
             Board board = boardService.getBoard(board_no);
             List<Basket> basketList = basketService.getListByBoard(board);
             boardService.compareWriter1AndWriter2(board.getMember().getMember_no(), member.getMember_no());
+
+            basketService.deleteList(basketList);
+
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("success")
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        }catch(Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+    //특정 board에서 내가 작성한 basket일괄 삭제
+    @DeleteMapping("/deleteMyBasketList/byBoradNo/{board_no}")
+    public ResponseEntity<?> deleteMyBasketListByBoardNo(@AuthenticationPrincipal String email, @PathVariable("board_no") Integer board_no){
+        try{
+            Member member = memberService.getMember(email);
+            Board board = boardService.getBoard(board_no);
+            List<Basket> basketList = basketService.getListByBoardAndMember(board, member);
 
             basketService.deleteList(basketList);
 
