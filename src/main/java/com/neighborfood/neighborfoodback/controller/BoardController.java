@@ -98,7 +98,7 @@ public class BoardController {
             // board info dto list 로 변환
             List<BoardDTO.info> boardInfoDTOList = Board.toInfoDTOList(list);
             // 응답
-            ResponseDTO responseDTO = ResponseDTO.builder()
+            ResponseListDTO<BoardDTO.info> responseDTO = ResponseListDTO.<BoardDTO.info>builder()
                     .result("success")
                     .data(boardInfoDTOList)
                     .build();
@@ -239,7 +239,7 @@ public class BoardController {
             // board info dto list 로 변환
             List<BoardDTO.info> boardInfoDTOList = Board.toInfoDTOList(myBoardList);
             // 응답
-            ResponseDTO responseDTO = ResponseDTO.builder()
+            ResponseListDTO<BoardDTO.info> responseDTO = ResponseListDTO.<BoardDTO.info>builder()
                     .result("success")
                     .data(boardInfoDTOList)
                     .build();
