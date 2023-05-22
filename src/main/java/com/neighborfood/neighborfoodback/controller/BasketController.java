@@ -261,10 +261,14 @@ public class BasketController {
     @PutMapping("/completePayment/{basket_no}")
     public ResponseEntity<?> completePayment(@AuthenticationPrincipal String email, @PathVariable("basket_no") Integer basket_no){
         try{
-            Member member = memberService.getMember(email);
+            Member member = memberService.getMember(email); //요청자
             Basket basket = basketService.getBasket(basket_no);
+            Board board = boardService.getBoard(basket.getBasket_no());
 
-            basketService.compareWriter1AndWriter2(basket.getMember().getMember_no(), member.getMember_no());
+            Member board_owner = memberService.getMember(board.getMember().getEmail()); //방장
+
+            //요청자 == 방장 검사
+            basketService.compareWriter1AndWriter2(board_owner.getMember_no(), member.getMember_no());
 
             basket.setConfirmed(!basket.isConfirmed());
 
