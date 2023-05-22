@@ -1,8 +1,11 @@
 package com.neighborfood.neighborfoodback.dto;
 
 import com.neighborfood.neighborfoodback.entity.Restaurant;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -12,6 +15,8 @@ public class BoardDTO {
     @Builder
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class request {
         private String title;
         private String contents;
