@@ -4,8 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 public class ReplyDTO {
     @Builder
     @Getter
@@ -30,8 +28,8 @@ public class ReplyDTO {
     public static class info {
         private Integer reply_no;
         private String contents;
-        private LocalDateTime reg_date;
-        private LocalDateTime mod_date;
+        private String reg_date;
+        private String mod_date;
         private String writer;
     }
 }

@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +56,30 @@ public class Board {
     private List<Basket> basketList;
 
     public static BoardDTO.info toInfoDTO(Board board) {
+        LocalDateTime regDate = board.getReg_date();
+        LocalDateTime modDate = board.getMod_date();
+        String convertedRegDate = regDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
+        if (modDate != null) {
+            String convertedModDate = modDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
+            return BoardDTO.info.builder()
+                    .board_no(board.getBoard_no())
+                    .title(board.getTitle())
+                    .contents(board.getContents())
+                    .category(board.getCategory())
+                    .latitude(board.getLatitude())
+                    .longitude(board.getLongitude())
+                    .order_time(board.getOrder_time())
+                    .max_people(board.getMax_people())
+                    .cur_people(board.getCur_people())
+
+                    .reg_date(convertedRegDate)
+                    .mod_date(convertedModDate)
+
+                    .member(Member.toInfoDTO(board.getMember()))
+                    .restaurant(board.getRestaurant())
+
+                    .build();
+        }
         return BoardDTO.info.builder()
                 .board_no(board.getBoard_no())
                 .title(board.getTitle())
@@ -66,8 +91,7 @@ public class Board {
                 .max_people(board.getMax_people())
                 .cur_people(board.getCur_people())
 
-                .reg_date(board.getReg_date())
-                .mod_date(board.getMod_date())
+                .reg_date(convertedRegDate)
 
                 .member(Member.toInfoDTO(board.getMember()))
                 .restaurant(board.getRestaurant())
@@ -80,6 +104,31 @@ public class Board {
     }
 
     public static BoardDTO.detail toDetailDTO(Board board) {
+        LocalDateTime regDate = board.getReg_date();
+        LocalDateTime modDate = board.getMod_date();
+        String convertedRegDate = regDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
+        if (modDate != null) {
+            String convertedModDate = modDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
+            return BoardDTO.detail.builder()
+                    .board_no(board.getBoard_no())
+                    .title(board.getTitle())
+                    .contents(board.getContents())
+                    .category(board.getCategory())
+                    .latitude(board.getLatitude())
+                    .longitude(board.getLongitude())
+                    .order_time(board.getOrder_time())
+                    .max_people(board.getMax_people())
+                    .cur_people(board.getCur_people())
+
+                    .reg_date(convertedRegDate)
+                    .mod_date(convertedModDate)
+
+                    .participant(Participation.toInfoDTOList(board.getParticipationList()))
+                    .reply(Reply.toInfoDTOList(board.getReplyList()))
+                    .member(Member.toInfoDTO(board.getMember()))
+                    .restaurant(board.getRestaurant())
+                    .build();
+        }
         return BoardDTO.detail.builder()
                 .board_no(board.getBoard_no())
                 .title(board.getTitle())
@@ -91,8 +140,7 @@ public class Board {
                 .max_people(board.getMax_people())
                 .cur_people(board.getCur_people())
 
-                .reg_date(board.getReg_date())
-                .mod_date(board.getMod_date())
+                .reg_date(convertedRegDate)
 
                 .participant(Participation.toInfoDTOList(board.getParticipationList()))
                 .reply(Reply.toInfoDTOList(board.getReplyList()))
