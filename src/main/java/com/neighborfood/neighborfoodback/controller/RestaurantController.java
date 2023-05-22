@@ -29,7 +29,7 @@ public class RestaurantController {
             // restaurant info dto list 로 변환
             List<RestaurantDTO.info> restaurantInfoDTOList = Restaurant.toInfoDTOList(list);
             // 응답
-            ResponseDTO responseDTO = ResponseDTO.builder()
+            ResponseListDTO<RestaurantDTO.info> responseDTO = ResponseListDTO.<RestaurantDTO.info>builder()
                     .result("success")
                     .data(restaurantInfoDTOList)
                     .build();
@@ -75,7 +75,7 @@ public class RestaurantController {
             // board info dto list 로 변환
             List<RestaurantDTO.info> restaurantInfoDTOList = Restaurant.toInfoDTOList(list);
             // 응답
-            ResponseDTO responseDTO = ResponseDTO.builder()
+            ResponseListDTO<RestaurantDTO.info> responseDTO = ResponseListDTO.<RestaurantDTO.info>builder()
                     .result("success")
                     .data(restaurantInfoDTOList)
                     .build();

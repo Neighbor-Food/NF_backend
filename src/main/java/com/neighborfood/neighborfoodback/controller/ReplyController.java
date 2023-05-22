@@ -5,9 +5,11 @@ import com.neighborfood.neighborfoodback.dto.ReplyDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
 import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.Member;
+import com.neighborfood.neighborfoodback.entity.Participation;
 import com.neighborfood.neighborfoodback.entity.Reply;
 import com.neighborfood.neighborfoodback.service.BoardService;
 import com.neighborfood.neighborfoodback.service.MemberService;
+import com.neighborfood.neighborfoodback.service.ParticipationService;
 import com.neighborfood.neighborfoodback.service.ReplyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class ReplyController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private ParticipationService participationService;
+
     // 댓글 생성: contents와 board_no를 받아서 처리
     @PostMapping("/create")
     public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody ReplyDTO.request replyRequestDTO) {
@@ -41,6 +46,8 @@ public class ReplyController {
             memberService.isAuthMem(member);
             // 게시글 정보 get
             Board board = boardService.getBoard(replyRequestDTO.getBoard_no());
+            // 게시글 참여 여부 알아보기. 미참여 -> exception
+            Participation participation = participationService.findByBoardAndMember(board, member);
             // dto 토대로 댓글 entity 생성
             Reply reply = Reply.builder()
                     .contents(replyRequestDTO.getContents())
@@ -50,6 +57,8 @@ public class ReplyController {
                     .build();
             // create
             Reply registeredReply = replyService.create(reply);
+            // 참가자들 push email 로 mail send
+            participationService.sendReplyMail(board, registeredReply);
             // reply info dto 로 변환
             ReplyDTO.info replyInfoDTO = Reply.toInfoDTO(registeredReply);
             // 응답
