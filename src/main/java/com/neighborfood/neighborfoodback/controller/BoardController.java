@@ -130,7 +130,7 @@ public class BoardController {
                     .longitude(boardRequestDTO.getLongitude())
                     .order_time(boardRequestDTO.getOrder_time())
                     .max_people(boardRequestDTO.getMax_people())
-                    .cur_people(0)
+                    .cur_people(1)
 
                     .reg_date(LocalDateTime.now())
                     .member(member)

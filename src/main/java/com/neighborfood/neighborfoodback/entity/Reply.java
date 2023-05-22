@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,11 +37,23 @@ public class Reply {
     private Board board;
 
     public static ReplyDTO.info toInfoDTO(Reply reply) {
+        LocalDateTime regDate = reply.getReg_date();
+        LocalDateTime modDate = reply.getMod_date();
+        String convertedRegDate = regDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+        if (modDate != null) {
+            String convertedModDate = modDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+            return ReplyDTO.info.builder()
+                    .reply_no(reply.getReply_no())
+                    .contents(reply.getContents())
+                    .reg_date(convertedRegDate)
+                    .mod_date(convertedModDate)
+                    .writer(reply.getMember().getName())
+                    .build();
+        }
         return ReplyDTO.info.builder()
                 .reply_no(reply.getReply_no())
                 .contents(reply.getContents())
-                .reg_date(reply.getReg_date())
-                .mod_date(reply.getMod_date())
+                .reg_date(convertedRegDate)
                 .writer(reply.getMember().getName())
                 .build();
     }

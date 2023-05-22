@@ -59,8 +59,8 @@ public class BoardDTO {
         private Integer max_people;
         private Integer cur_people;
 
-        private LocalDateTime reg_date;
-        private LocalDateTime mod_date;
+        private String reg_date;
+        private String mod_date;
 
         private MemberDTO.info member;
         private Restaurant restaurant;
@@ -80,8 +80,8 @@ public class BoardDTO {
         private Integer max_people;
         private Integer cur_people;
 
-        private LocalDateTime reg_date;
-        private LocalDateTime mod_date;
+        private String reg_date;
+        private String mod_date;
 
         private List<ParticipationDTO.info> participant;
         private List<ReplyDTO.info> reply;
