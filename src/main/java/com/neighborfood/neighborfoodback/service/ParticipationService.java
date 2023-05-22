@@ -3,11 +3,13 @@ package com.neighborfood.neighborfoodback.service;
 import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.entity.Participation;
+import com.neighborfood.neighborfoodback.entity.Reply;
 import com.neighborfood.neighborfoodback.repository.ParticipationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class ParticipationService {
     @Autowired
     private ParticipationRepository participationRepository;
+
+    @Autowired
+    private EmailAuthService emailAuthService;
 
     public Participation create(Participation participation) {
         if (participation == null) {
@@ -51,13 +56,17 @@ public class ParticipationService {
         }
     }
 
-//    public List<Participation> getListByBoard(Board board) {
-//        List<Participation> participationList = participationRepository.findAllByBoard(board);
-//        if (participationList.isEmpty()) {
-//            // catch exception
-//            log.warn("participation list does not exist");
-//            throw new RuntimeException("participation list does not exist");
-//        }
-//        return participationList;
-//    }
+    public void sendReplyMail(Board board, Reply reply){
+        List<Participation> participationList = participationRepository.findAllByBoard(board);
+        if (participationList.isEmpty()){
+            return;
+        }
+        for (Participation participant : participationList){
+            if (participant.getMember().getPush_email().equals("")){
+                continue;
+            }
+            // 이메일 인증 메일 send
+            emailAuthService.createReplyMail(participant.getMember().getPush_email(), board, reply);
+        }
+    }
 }

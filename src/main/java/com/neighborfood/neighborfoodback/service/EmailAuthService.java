@@ -1,6 +1,8 @@
 package com.neighborfood.neighborfoodback.service;
 
+import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.EmailAuth;
+import com.neighborfood.neighborfoodback.entity.Reply;
 import com.neighborfood.neighborfoodback.repository.EmailAuthRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +54,14 @@ public class EmailAuthService {
         sendEmail(mailMessage);
 
 //        return emailAuthToken.getId();
+    }
+
+    public void createReplyMail(String push_email, Board board, Reply reply){
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(push_email);
+        mailMessage.setSubject("[Neighborfood]"+board.getTitle()+"에서 새 댓글이 작성되었습니다");
+        mailMessage.setText(reply.getMember().getName()+": "+reply.getContents());
+        sendEmail(mailMessage);
     }
 
     // 유효한 토큰 가져오기
