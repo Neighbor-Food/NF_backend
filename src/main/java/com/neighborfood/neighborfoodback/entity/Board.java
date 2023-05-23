@@ -27,6 +27,7 @@ public class Board {
     private String category;
     private Integer latitude;
     private Integer longitude;
+    private String location;
     private LocalDateTime order_time;
     private Integer max_people;
     private Integer cur_people;
@@ -68,6 +69,7 @@ public class Board {
                     .category(board.getCategory())
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())
+                    .location(board.getLocation())
                     .order_time(board.getOrder_time())
                     .max_people(board.getMax_people())
                     .cur_people(board.getCur_people())
@@ -87,6 +89,7 @@ public class Board {
                 .category(board.getCategory())
                 .latitude(board.getLatitude())
                 .longitude(board.getLongitude())
+                .location(board.getLocation())
                 .order_time(board.getOrder_time())
                 .max_people(board.getMax_people())
                 .cur_people(board.getCur_people())
@@ -116,6 +119,7 @@ public class Board {
                     .category(board.getCategory())
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())
+                    .location(board.getLocation())
                     .order_time(board.getOrder_time())
                     .max_people(board.getMax_people())
                     .cur_people(board.getCur_people())
@@ -136,6 +140,7 @@ public class Board {
                 .category(board.getCategory())
                 .latitude(board.getLatitude())
                 .longitude(board.getLongitude())
+                .location(board.getLocation())
                 .order_time(board.getOrder_time())
                 .max_people(board.getMax_people())
                 .cur_people(board.getCur_people())

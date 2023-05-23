@@ -8,8 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
+@Transactional
 @Slf4j
 @Service
 public class MemberService {
@@ -115,7 +117,8 @@ public class MemberService {
             // todo: 일단 토큰 만료시간 없애놨음. 그리고 인증완료되면 토큰 삭제
             /*emailAuth.useToken(); // 토큰 만료
             emailAuthRepository.save(emailAuth); // db 에 상태 저장*/
-            emailAuthRepository.delete(emailAuth);
+//            emailAuthRepository.delete(emailAuth); // 토큰 삭제
+            emailAuthRepository.deleteByEmail(emailAuth.getEmail()); // 해당 email 로 저장되어 있는 모든 토큰 삭제
             member.emailVerifiedSuccess(); // 인증 true 로 전환
             memberRepository.save(member); // db 에 상태 저장
         } else {
