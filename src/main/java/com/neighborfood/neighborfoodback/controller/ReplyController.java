@@ -57,8 +57,8 @@ public class ReplyController {
                     .build();
             // create
             Reply registeredReply = replyService.create(reply);
-            // 참가자들 push email 로 mail send
-            participationService.sendReplyMail(board, registeredReply);
+            // 참가자들 push email 로 mail send (본인 제외)
+            participationService.sendReplyMail(member, board, registeredReply);
             // reply info dto 로 변환
             ReplyDTO.info replyInfoDTO = Reply.toInfoDTO(registeredReply);
             // 응답

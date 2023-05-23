@@ -56,13 +56,22 @@ public class ParticipationService {
         }
     }
 
-    public void sendReplyMail(Board board, Reply reply){
+    // 새 댓글 알림 (메일 전송)
+    public void sendReplyMail(Member member, Board board, Reply reply) {
+        // board 에 속한 참가자들 리스트 받아오기
         List<Participation> participationList = participationRepository.findAllByBoard(board);
-        if (participationList.isEmpty()){
+        // 참가자들이 없으면 걍 return
+        if (participationList.isEmpty()) {
             return;
         }
-        for (Participation participant : participationList){
-            if (participant.getMember().getPush_email().equals("")){
+        // 참가자 리스트 반복문 시작
+        for (Participation participant : participationList) {
+            // 만약 참가자의 push email 이 존재하지 않는다면 처리
+            if (participant.getMember().getPush_email().equals("")) {
+                continue;
+            }
+            // 만약 참가자의 email 이 새 댓글 작성자의 email 과 동일하다면 처리
+            if (participant.getMember().getEmail().equals(member.getEmail())) {
                 continue;
             }
             // 이메일 인증 메일 send
