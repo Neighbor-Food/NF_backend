@@ -10,4 +10,5 @@ public interface EmailAuthRepository extends JpaRepository<EmailAuth, String> {
     Optional<EmailAuth> findByIdAndExpirationDateAfterAndExpired(String authTokenId, LocalDateTime now, boolean expired);
 
     Optional<EmailAuth> findByEmail(String email);
+    void deleteByEmail(String email);
 }

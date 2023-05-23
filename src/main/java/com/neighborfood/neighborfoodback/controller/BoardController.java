@@ -128,6 +128,7 @@ public class BoardController {
                     .category(boardRequestDTO.getCategory())
                     .latitude(boardRequestDTO.getLatitude())
                     .longitude(boardRequestDTO.getLongitude())
+                    .location(boardRequestDTO.getLocation())
                     .order_time(boardRequestDTO.getOrder_time())
                     .max_people(boardRequestDTO.getMax_people())
                     .cur_people(1)
@@ -205,6 +206,7 @@ public class BoardController {
             board.setCategory(boardModifyDTO.getCategory());
             board.setLatitude(boardModifyDTO.getLatitude());
             board.setLongitude(boardModifyDTO.getLongitude());
+            board.setLocation(boardModifyDTO.getLocation());
             board.setOrder_time(boardModifyDTO.getOrder_time());
             board.setMax_people(boardModifyDTO.getMax_people());
 
