@@ -268,6 +268,31 @@ public class BoardController {
         }
     }
 
+    // 내가 참여중인 게시글 리스트
+    @GetMapping("/myParticipationBoardList")
+    public ResponseEntity<?> myParticipationBoardList(@AuthenticationPrincipal String email) {
+        try {
+            // 현재 로그인한 사용자 정보 get
+            Member member = memberService.getMember(email);
+            // 내가 참여중인 게시글 리스트 가져오기
+            List<Board> myParticipationBoardList = participationService.myParticipationBoardList(member);
+            // board info dto list 로 변환
+            List<BoardDTO.info> boardInfoDTOList = Board.toInfoDTOList(myParticipationBoardList);
+            // 응답
+            ResponseListDTO<BoardDTO.info> responseDTO = ResponseListDTO.<BoardDTO.info>builder()
+                    .result("success")
+                    .data(boardInfoDTOList)
+                    .build();
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder()
+                    .result("fail")
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+
     @GetMapping("/participate/{board_no}")
     public ResponseEntity<?> participateBoard(@AuthenticationPrincipal String email, @PathVariable("board_no") Integer board_no) {
         try {
