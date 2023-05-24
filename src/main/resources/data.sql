@@ -19,19 +19,21 @@ insert into member (email, password, name, push_email, bank, bank_account_number
 values ('user05@kumoh.ac.kr', '1234', '최이름', '', '하나', '000-0000-000', true);
 
 --식당 데이터
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (1, '제주집', '한식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (2, '하루', '일식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (3, '선산곱창', '야식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (4, '구미가당김', '카페', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (5, '와촌식육식당 옥계점', '한식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (6, '제주집', '한식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (7, '이오카츠 구미옥계점', '일식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (8, '라쿵푸마라탕 구미옥계5호점', '중식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (9, '스위시 옥계점', '일식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (10, '서민찜닭 옥계점', '한식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (11, '초심', '일식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (12, '신대광반점', '중식', 0.0, 0.0);
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (13, '레브', '양식', 0.0, 0.0);
+USE uracle_kit;
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (1, '제주집', '육류,고기', 0.0, 0.0, 'static/restaurantImages/제주집.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (2, '하루', '일식집', 0.0, 0.0, 'static/restaurantImages/하루.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (3, '선산곱창', '곱창,막창', 0.0, 0.0, 'static/restaurantImages/선산곱창.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (4, '구미가당김', '카페', 0.0, 0.0, 'static/restaurantImages/구미가당김.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (5, '와촌식육식당 옥계점', '육류,고기', 0.0, 0.0, 'static/restaurantImages/와촌식육식당 옥계점.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (6, '제주집', '육류,고기', 0.0, 0.0, 'static/restaurantImages/제주집.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (7, '이오카츠 구미옥계점', '돈까스,우동', 0.0, 0.0, 'static/restaurantImages/이오카츠 구미옥계점.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (8, '라쿵푸마라탕 구미옥계5호점', '중국요리', 0.0, 0.0, 'static/restaurantImages/라쿵푸마라탕 구미옥계5호점.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (9, '스위시 옥계점', '초밥,롤', 0.0, 0.0, 'static/restaurantImages/스위시 옥계점.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (10, '서민찜닭 옥계점', '닭요리', 0.0, 0.0, 'static/restaurantImages/서민찜닭 옥계점.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (11, '초심', '초밥,롤', 0.0, 0.0, 'static/restaurantImages/초심.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (12, '신대광반점', '중국요리', 0.0, 0.0, 'static/restaurantImages/신대광반점.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (13, '레브', '양식', 0.0, 0.0, 'static/restaurantImages/레브.jpg');
+
 
 --메뉴데이터
 USE uracle_kit;

@@ -3,12 +3,14 @@ spring:
         banner-mode: off
     datasource:
         driverClassName: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/uracle_kit?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8
+        url: jdbc:mysql://localhost:3306/uracle_kit?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&characterSetResults=UTF-8
         username: root
         password: qwqw1212
         initialization-mode: always
     autoconfigure:
         exclude: org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration
+    
+
 
 #    # JPA Setting
 #    jpa:
@@ -44,3 +46,8 @@ spring:
                     connectiontimeout: 5000
                     timeout: 5000
                     writetimeout: 5000
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
