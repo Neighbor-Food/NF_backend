@@ -35,7 +35,7 @@ public class Restaurant {
 
     public static RestaurantDTO.info toInfoDTO(Restaurant restaurant) {
         return RestaurantDTO.info.builder()
-                .id(restaurant.getRestaurant_no())
+                .restaurant_no(restaurant.getRestaurant_no())
                 .name(restaurant.getName())
                 .category(restaurant.getCategory())
                 .delivery_tip(restaurant.getDelivery_tip())

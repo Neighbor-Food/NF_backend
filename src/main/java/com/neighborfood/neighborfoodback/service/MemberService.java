@@ -61,6 +61,17 @@ public class MemberService {
         }
     }
 
+    public Member getMemberByNo(Integer member_no) {
+        Optional<Member> member = memberRepository.findById(member_no);
+        if (member.isPresent()) {
+            return member.get();
+        } else {
+            // catch exception
+            log.warn("member does not exist");
+            throw new RuntimeException("member does not exist");
+        }
+    }
+
     public Member modify(Member member) {
         if (member == null) {
             // catch exception

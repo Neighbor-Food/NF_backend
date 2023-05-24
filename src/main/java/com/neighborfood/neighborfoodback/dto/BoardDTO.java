@@ -24,7 +24,7 @@ public class BoardDTO {
         private Integer latitude;
         private Integer longitude;
         private String location;
-        private LocalDateTime order_time;
+        private String order_time;
         private Integer max_people;
 
         private Integer restaurant_no;
@@ -41,7 +41,7 @@ public class BoardDTO {
         private Integer latitude;
         private Integer longitude;
         private String location;
-        private LocalDateTime order_time;
+        private String order_time;
         private Integer max_people;
 
         private Integer restaurant_no;
@@ -58,7 +58,7 @@ public class BoardDTO {
         private Integer latitude;
         private Integer longitude;
         private String location;
-        private LocalDateTime order_time;
+        private String order_time;
         private Integer max_people;
         private Integer cur_people;
 
@@ -80,7 +80,7 @@ public class BoardDTO {
         private Integer latitude;
         private Integer longitude;
         private String location;
-        private LocalDateTime order_time;
+        private String order_time;
         private Integer max_people;
         private Integer cur_people;
 

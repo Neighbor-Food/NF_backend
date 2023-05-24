@@ -59,7 +59,9 @@ public class Board {
     public static BoardDTO.info toInfoDTO(Board board) {
         LocalDateTime regDate = board.getReg_date();
         LocalDateTime modDate = board.getMod_date();
+        LocalDateTime orderTime = board.getOrder_time();
         String convertedRegDate = regDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
+        String convertedOrderTime = orderTime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
         if (modDate != null) {
             String convertedModDate = modDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
             return BoardDTO.info.builder()
@@ -70,7 +72,7 @@ public class Board {
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())
                     .location(board.getLocation())
-                    .order_time(board.getOrder_time())
+                    .order_time(convertedOrderTime)
                     .max_people(board.getMax_people())
                     .cur_people(board.getCur_people())
 
@@ -90,7 +92,7 @@ public class Board {
                 .latitude(board.getLatitude())
                 .longitude(board.getLongitude())
                 .location(board.getLocation())
-                .order_time(board.getOrder_time())
+                .order_time(convertedOrderTime)
                 .max_people(board.getMax_people())
                 .cur_people(board.getCur_people())
 
@@ -109,7 +111,9 @@ public class Board {
     public static BoardDTO.detail toDetailDTO(Board board) {
         LocalDateTime regDate = board.getReg_date();
         LocalDateTime modDate = board.getMod_date();
+        LocalDateTime orderTime = board.getOrder_time();
         String convertedRegDate = regDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
+        String convertedOrderTime = orderTime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
         if (modDate != null) {
             String convertedModDate = modDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
             return BoardDTO.detail.builder()
@@ -120,7 +124,7 @@ public class Board {
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())
                     .location(board.getLocation())
-                    .order_time(board.getOrder_time())
+                    .order_time(convertedOrderTime)
                     .max_people(board.getMax_people())
                     .cur_people(board.getCur_people())
 
@@ -141,7 +145,7 @@ public class Board {
                 .latitude(board.getLatitude())
                 .longitude(board.getLongitude())
                 .location(board.getLocation())
-                .order_time(board.getOrder_time())
+                .order_time(convertedOrderTime)
                 .max_people(board.getMax_people())
                 .cur_people(board.getCur_people())
 
