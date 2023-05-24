@@ -33,8 +33,8 @@ INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_p
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (12, '신대광반점', '중식', 0.0, 0.0);
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (13, '레브', '양식', 0.0, 0.0);
 
-insert into restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (14, '긴급분식', '분식', 3000, 10000);
-insert into restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (15, '긴급분식 2호점', '분식', 2000, 13000);
+insert into restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (14, '동대문엽기떡볶이 옥계점', '분식', 3000, 10000);
+insert into restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (15, '신전떡볶이 옥계중앙점', '분식', 2000, 13000);
 
 --메뉴데이터
 USE uracle_kit;
@@ -111,10 +111,15 @@ INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (70, 
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (71, '한우 채끝', '13', 61000.0, "2022-11-12 00:00:00");
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (72, '커리파스타', '13', 22000.0, "2022-11-12 00:00:00");
 
-insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (73, '로제떡볶이', '14', 15000.0, "2022-11-12 00:00:00");
-insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (74, '떡볶이', '14', 4000.0, "2022-11-12 00:00:00");
-insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (75, '떡볶이', '15', 4000.0, "2022-11-12 00:00:00");
-insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (76, '삼각만두', '15', 4000.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (73, '엽기메뉴', '14', 14000.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (74, '로제메뉴', '14', 16000.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (75, '짜장메뉴', '14', 16000.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (76, '엽기닭볶음탕', '14', 24000.0, "2022-11-12 00:00:00");
+
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (77, '떡볶이', '15', 3500.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (78, '치즈떡볶이', '15', 5000.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (79, '오뎅(5개)', '15', 1700.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (80, '김말이(3개)', '15', 1700.0, "2022-11-12 00:00:00");
 
 
 
