@@ -37,6 +37,11 @@ public class ParticipationService {
         return participationRepository.save(participation);
     }
 
+    public void delete(Board board, Member member) {
+        Participation participation = findByBoardAndMember(board, member);
+        participationRepository.delete(participation);
+    }
+
     public Integer countByBoard(Board board) {
         if (board == null) {
             // catch exception
@@ -59,7 +64,7 @@ public class ParticipationService {
 
     public List<Board> myParticipationBoardList(Member member) {
         List<Participation> participationList = participationRepository.findAllByMember(member);
-        if (participationList.isEmpty()){
+        if (participationList.isEmpty()) {
             // catch exception
             log.warn("참여 중인 곳이 없습니다.");
             throw new RuntimeException("참여 중인 곳이 없습니다.");
