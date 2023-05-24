@@ -9,7 +9,7 @@ public class RestaurantDTO {
     @Getter
     @Setter
     public static class info {
-        private Integer id;
+        private Integer restaurant_no;
 
         private String name;
         private String category;
