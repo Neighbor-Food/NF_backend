@@ -33,6 +33,9 @@ INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_p
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (12, '신대광반점', '중식', 0.0, 0.0);
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (13, '레브', '양식', 0.0, 0.0);
 
+insert into restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (14, '긴급분식', '분식', 3000, 10000);
+insert into restaurant (restaurant_no, name, category, delivery_tip, min_order_price) VALUES (15, '긴급분식 2호점', '분식', 2000, 13000);
+
 --메뉴데이터
 USE uracle_kit;
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (1, '제주오겹살 (150g)', '1', 11900.0, "2023-05-08 00:00:00");
@@ -108,6 +111,12 @@ INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (70, 
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (71, '한우 채끝', '13', 61000.0, "2022-11-12 00:00:00");
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update) VALUES (72, '커리파스타', '13', 22000.0, "2022-11-12 00:00:00");
 
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (73, '로제떡볶이', '14', 15000.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (74, '떡볶이', '14', 4000.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (75, '떡볶이', '15', 4000.0, "2022-11-12 00:00:00");
+insert into menu (menu_no, name, restaurant_no, price, last_update) VALUES (76, '삼각만두', '15', 4000.0, "2022-11-12 00:00:00");
+
+
 
 -- 샘플 게시글 데이터
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
@@ -115,9 +124,9 @@ values ('고기 먹을 사람 구해요', '고기 먹을 사람 구합니다 같
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
 values ('고기 먹을 사람 구해요@@@', '삼겹살 한 입 념념 공깃밥까지 야무지다... 같이 배달할 사람?', '한식', '예시주소','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 5);
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('분식점이 없네', '분식 카테고리에 음식점이 없어요잉', '분식', '예시주소','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 3);
+values ('긴급분식 머임', '새로생긴것같은데배달시킬사람', '분식', '예시주소','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 14);
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('분식점이 없네', '분식 카테고리에 음식점이 없어요잉', '분식', '예시주소','2023-06-03T14:30', 5, 4,'2023-05-20T10:24:50.5831464', 1, 3);
+values ('긴급분식 2호점도 있네', '여기가 더 좋아보임 떡볶이 먹을사람 참여 ㄱ', '분식', '예시주소','2023-06-03T14:30', 5, 4,'2023-05-20T10:24:50.5831464', 1, 15);
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
 values ('마라탕 땡김', '오랜만에 마라탕 먹고싶당 소고기 추가해서...', '중식', '예시주소','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 8);
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
