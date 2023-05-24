@@ -19,6 +19,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -122,6 +123,12 @@ public class BoardController {
             memberService.isAuthMem(member);
             // dto 토대로 board entity 생성
             Restaurant restaurant = restaurantService.getRestaurant(boardRequestDTO.getRestaurant_no());
+
+            // 형식 변환 202301021730 -> 2023-01-02T17:30
+            String strOrderTime = boardRequestDTO.getOrder_time();
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+            LocalDateTime strToLocalDateTime = LocalDateTime.parse(strOrderTime, format);
+
             Board board = Board.builder()
                     .title(boardRequestDTO.getTitle())
                     .contents(boardRequestDTO.getContents())
@@ -129,7 +136,7 @@ public class BoardController {
                     .latitude(boardRequestDTO.getLatitude())
                     .longitude(boardRequestDTO.getLongitude())
                     .location(boardRequestDTO.getLocation())
-                    .order_time(boardRequestDTO.getOrder_time())
+                    .order_time(strToLocalDateTime)
                     .max_people(boardRequestDTO.getMax_people())
                     .cur_people(1)
 
@@ -201,13 +208,19 @@ public class BoardController {
             boardService.compareWriter1AndWriter2(board.getMember().getMember_no(), member.getMember_no());
             // dto 토대로 board entity 수정
             Restaurant restaurant = restaurantService.getRestaurant(boardModifyDTO.getRestaurant_no());
+
+            // 형식 변환 202301021730 -> 2023-01-02T17:30
+            String strOrderTime = boardModifyDTO.getOrder_time();
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+            LocalDateTime strToLocalDateTime = LocalDateTime.parse(strOrderTime, format);
+
             board.setTitle(boardModifyDTO.getTitle());
             board.setContents(boardModifyDTO.getContents());
             board.setCategory(boardModifyDTO.getCategory());
             board.setLatitude(boardModifyDTO.getLatitude());
             board.setLongitude(boardModifyDTO.getLongitude());
             board.setLocation(boardModifyDTO.getLocation());
-            board.setOrder_time(boardModifyDTO.getOrder_time());
+            board.setOrder_time(strToLocalDateTime);
             board.setMax_people(boardModifyDTO.getMax_people());
 
             board.setMod_date(LocalDateTime.now());

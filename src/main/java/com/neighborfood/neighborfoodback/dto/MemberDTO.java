@@ -50,6 +50,7 @@ public class MemberDTO {
     public static class login {
         private String email;
         private String password;
+        private String name;
         private String token;
     }
 

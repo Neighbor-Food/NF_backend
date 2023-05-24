@@ -54,11 +54,11 @@ public class RestaurantController {
     }
 
     // 특정 음식점 조회
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> getRestaurant(@PathVariable("id") Integer id) {
+    @GetMapping("/get/{restaurant_no}")
+    public ResponseEntity<?> getRestaurant(@PathVariable("restaurant_no") Integer restaurant_no) {
         try {
             // 음식점 가져오기
-            Restaurant restaurant = restaurantService.getRestaurant(id);
+            Restaurant restaurant = restaurantService.getRestaurant(restaurant_no);
             // restaurant info dto 로 변환
             RestaurantDTO.info restaurantInfoDTO = Restaurant.toInfoDTO(restaurant);
             // 응답
