@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,20 @@ public class ParticipationService {
             log.warn("참여 정보가 없습니다.");
             throw new RuntimeException("참여 정보가 없습니다.");
         }
+    }
+
+    public List<Board> myParticipationBoardList(Member member) {
+        List<Participation> participationList = participationRepository.findAllByMember(member);
+        if (participationList.isEmpty()){
+            // catch exception
+            log.warn("참여 중인 곳이 없습니다.");
+            throw new RuntimeException("참여 중인 곳이 없습니다.");
+        }
+        List<Board> myParticipationBoardList = new ArrayList<>();
+        for (Participation part : participationList) {
+            myParticipationBoardList.add(part.getBoard());
+        }
+        return myParticipationBoardList;
     }
 
     // 새 댓글 알림 (메일 전송)

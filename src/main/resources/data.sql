@@ -129,9 +129,9 @@ values ('고기 먹을 사람 구해요', '고기 먹을 사람 구합니다 같
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
 values ('고기 먹을 사람 구해요@@@', '삼겹살 한 입 념념 공깃밥까지 야무지다... 같이 배달할 사람?', '한식', '예시주소','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 5);
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('긴급분식 머임', '새로생긴것같은데배달시킬사람', '분식', '예시주소','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 14);
+values ('엽떡...엽떡을 먹자', '로제 떡볶이 먹을 사람 빨리 참여 ㄱ', '분식', '예시주소','2023-06-03T14:30', 5, 3,'2023-05-20T10:24:50.5831464', 1, 14);
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
-values ('긴급분식 2호점도 있네', '여기가 더 좋아보임 떡볶이 먹을사람 참여 ㄱ', '분식', '예시주소','2023-06-03T14:30', 5, 4,'2023-05-20T10:24:50.5831464', 1, 15);
+values ('떡볶이 배달@@@', '오랜만에 먹고싶은데 최소금액 너무 높은거 아니냐', '분식', '예시주소','2023-06-03T14:30', 5, 4,'2023-05-20T10:24:50.5831464', 1, 15);
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)
 values ('마라탕 땡김', '오랜만에 마라탕 먹고싶당 소고기 추가해서...', '중식', '예시주소','2023-06-03T14:30', 5, 2,'2023-05-20T10:24:50.5831464', 1, 8);
 insert into board (title, contents, category, location, order_time, max_people, cur_people, reg_date, member_no, restaurant_no)

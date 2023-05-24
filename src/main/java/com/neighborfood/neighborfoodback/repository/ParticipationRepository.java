@@ -16,4 +16,6 @@ public interface ParticipationRepository extends JpaRepository<Participation, In
     Optional<Participation> findByBoardAndMember(Board board, Member member);
 
     List<Participation> findAllByBoard(Board board);
+
+    List<Participation> findAllByMember(Member member);
 }
