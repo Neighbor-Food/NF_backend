@@ -292,42 +292,4 @@ public class BoardController {
             return ResponseEntity.badRequest().body(responseDTO);
         }
     }
-
-    @GetMapping("/participate/{board_no}")
-    public ResponseEntity<?> participateBoard(@AuthenticationPrincipal String email, @PathVariable("board_no") Integer board_no) {
-        try {
-            // 현재 로그인한 사용자 정보 get
-            Member member = memberService.getMember(email);
-            // 게시글 정보 get
-            Board board = boardService.getBoard(board_no);
-            // 인원이 이미 다 찼다면 exception
-            if (board.getMax_people() <= board.getCur_people()) {
-                log.warn("인원을 더 이상 추가할 수 없습니다.");
-                throw new RuntimeException("인원을 더 이상 추가할 수 없습니다.");
-            }
-            // 생성
-            Participation participation = Participation.builder()
-                    .board(board)
-                    .member(member)
-                    .build();
-            // create
-            Participation registeredParticipation = participationService.create(participation);
-            ParticipationDTO.info participationInfoDTO = Participation.toInfoDTO(registeredParticipation);
-            // set board cur_people and save status
-            board.setCur_people(participationService.countByBoard(board));
-            boardService.modify(board);
-            // 응답
-            ResponseDTO responseDTO = ResponseDTO.builder()
-                    .result("success")
-                    .data(participationInfoDTO)
-                    .build();
-            return ResponseEntity.ok().body(responseDTO);
-        } catch (Exception e) {
-            ResponseDTO responseDTO = ResponseDTO.builder()
-                    .result("fail")
-                    .error(e.getMessage())
-                    .build();
-            return ResponseEntity.badRequest().body(responseDTO);
-        }
-    }
 }
