@@ -136,10 +136,20 @@ public class BasketController {
     @PostMapping("/create")
     public ResponseEntity<?> create(@AuthenticationPrincipal String email, @RequestBody BasketDTO.request basketRequestDTO){
         try{
+            System.out.println(basketRequestDTO);
             Member member = memberService.getMember(email);
             memberService.isAuthMem(member);
             Board board = boardService.getBoard(basketRequestDTO.getBoardNo());
             Menu menu = menuService.getMenu(basketRequestDTO.getMenuNo());
+
+            //여기서 부터 작업, 성능상 수정이 필요할 것으로 예상됨
+            List<Basket> baskets = basketService.getListByBoard(board);
+            for(Basket basket : baskets){
+                if(basket.getMember() == member && basket.isConfirmed() == true){
+                    Exception e = new Exception("입금확인된 사용자는 장바구니를 추가할 수 없습니다");
+                    throw  e;
+                }
+            }
 
             Basket basket = Basket.builder()
                     .board(board)
@@ -265,6 +275,9 @@ public class BasketController {
             Basket basket = basketService.getBasket(basket_no);
             Board board = boardService.getBoard(basket.getBoard().getBoard_no());
             Member boardOwner = memberService.getMember(board.getMember().getEmail());
+
+            System.out.println(boardOwner.getMember_no());
+            System.out.println(reuester.getMember_no());
 
             basketService.compareWriter1AndWriter2(boardOwner.getMember_no(), reuester.getMember_no());
 
