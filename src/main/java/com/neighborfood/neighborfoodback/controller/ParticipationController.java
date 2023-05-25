@@ -33,6 +33,8 @@ public class ParticipationController {
         try {
             // 현재 로그인한 사용자 정보 get
             Member member = memberService.getMember(email);
+            // 이메일 인증이 완료된 사용자인지 체크 아니라면 exception
+            memberService.isAuthMem(member);
             // 게시글 정보 get
             Board board = boardService.getBoard(board_no);
             // 인원이 이미 다 찼다면 exception
