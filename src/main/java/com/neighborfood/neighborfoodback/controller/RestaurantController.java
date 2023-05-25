@@ -5,6 +5,8 @@ import com.neighborfood.neighborfoodback.dto.ResponseListDTO;
 import com.neighborfood.neighborfoodback.dto.RestaurantDTO;
 import com.neighborfood.neighborfoodback.entity.Restaurant;
 import com.neighborfood.neighborfoodback.service.RestaurantService;
+
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -54,11 +56,11 @@ public class RestaurantController {
     }
 
     // 특정 음식점 조회
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> getRestaurant(@PathVariable("id") Integer id) {
+    @GetMapping("/get/{restaurant_no}")
+    public ResponseEntity<?> getRestaurant(@PathVariable("restaurant_no") Integer restaurant_no) {
         try {
             // 음식점 가져오기
-            Restaurant restaurant = restaurantService.getRestaurant(id);
+            Restaurant restaurant = restaurantService.getRestaurant(restaurant_no);
             // restaurant info dto 로 변환
             RestaurantDTO.info restaurantInfoDTO = Restaurant.toInfoDTO(restaurant);
             // 응답
@@ -159,15 +161,15 @@ public class RestaurantController {
 //    }
 
 //    작동함. ReponseEntity<Resource> 리턴
-    @GetMapping(value = "/getImage/{restaurant_name}")
-    public ResponseEntity<Resource> getImage(@PathVariable("restaurant_name") String imageName) {
+    @GetMapping(value = "/getImage/{restaurant_no}")
+    public ResponseEntity<Resource> getImage(@PathVariable("restaurant_no") Integer restaurant_no) {
         try {
             // 파일 경로를 설정합니다. resources/static/restaurantImages 폴더에 있는 이미지 name 을 가져옴.
-            String filePath = "static/restaurantImages/" + imageName;
-            String extension = determineExtension(imageName); // 확장자 추가.
+            Restaurant restaurant = restaurantService.getRestaurant(restaurant_no);
+            String image_path = restaurant.getImage_path();
 
             // resources/static/restaurantImages 아래에 있는 파일을 읽음.
-            Resource resource = new ClassPathResource(filePath + extension);
+            Resource resource = new ClassPathResource(image_path);
 
             // HttpHeaders를 설정.
             HttpHeaders headers = new HttpHeaders();
@@ -181,15 +183,6 @@ public class RestaurantController {
             // 파일을 찾지 못한 경우나 읽을 수 없는 경우 예외 처리.
             return ResponseEntity.notFound().build();
         }
-    }
-
-    // 파일명에 확장자를 붙이는 유틸리티 메서드
-    private String determineExtension(String filename) {
-        int lastDotIndex = filename.lastIndexOf(".");
-        if (lastDotIndex != -1 && lastDotIndex < filename.length() - 1) {
-            return filename.substring(lastDotIndex);
-        }
-        return ".jpg"; // 기본 확장자로 .jpg를 사용.
     }
 
 }
