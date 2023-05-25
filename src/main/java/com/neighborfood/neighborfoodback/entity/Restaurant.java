@@ -6,6 +6,10 @@ import com.neighborfood.neighborfoodback.dto.RestaurantDTO;
 import lombok.*;
 
 import javax.persistence.*;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +28,7 @@ public class Restaurant {
     private String category;
     private String delivery_tip;
     private String min_order_price;
+    private String image_path;
 
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
