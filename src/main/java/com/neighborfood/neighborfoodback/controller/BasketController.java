@@ -143,7 +143,7 @@ public class BasketController {
             Menu menu = menuService.getMenu(basketRequestDTO.getMenuNo());
 
             //여기서 부터 작업, 성능상 수정이 필요할 것으로 예상됨
-            List<Basket> baskets = basketService.getListByBoard(board);
+            List<Basket> baskets = basketService.getListByBoardReturnNull(board);
             if(baskets != null){
                 for(Basket basket : baskets){
                     if(basket.getMember() == member && basket.isConfirmed() == true){
