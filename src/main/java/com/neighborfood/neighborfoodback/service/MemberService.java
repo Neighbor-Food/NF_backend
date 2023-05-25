@@ -85,16 +85,25 @@ public class MemberService {
     public Member getByCredentials(String email, String password) {
         if (email == null || password == null) {
             // catch exception
-            log.warn("invalid arguments");
-            throw new RuntimeException("invalid arguments");
+            log.warn("아이디 또는 비밀번호가 입력되지 않았습니다.");
+            throw new RuntimeException("아이디 또는 비밀번호가 입력되지 않았습니다.");
         }
+        // 아이디와 비밀번호로 회원 조회
         Member member = memberRepository.findByEmailAndPassword(email, password);
-        // 이메일, 비번 입력했지만 회원가입 한 대상이 아닌 경우 처리
+        // 회원 조회가 안 된 경우 처리
         if (member == null) {
+            // 이메일로 조회 했을 때 db에 존재 함 -> 비밀번호가 틀려서 회원 조회가 안된 경우
+            Optional<Member> memberFoundByEmail = memberRepository.findByEmail(email);
+            if (memberFoundByEmail.isPresent()) {
+                // catch exception
+                log.warn("패스워드가 틀렸습니다.");
+                throw new RuntimeException("패스워드가 틀렸습니다.");
+            }
             // catch exception
-            log.warn("member does not exist");
-            throw new RuntimeException("member does not exist");
+            log.warn("회원을 찾을 수 없습니다.");
+            throw new RuntimeException("회원을 찾을 수 없습니다.");
         }
+
         return member;
     }
 
