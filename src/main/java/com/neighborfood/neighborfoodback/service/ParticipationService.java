@@ -43,11 +43,6 @@ public class ParticipationService {
     }
 
     public Integer countByBoard(Board board) {
-        if (board == null) {
-            // catch exception
-            log.warn("board is null");
-            throw new RuntimeException("board is null");
-        }
         return participationRepository.countByBoard(board);
     }
 
@@ -64,12 +59,10 @@ public class ParticipationService {
 
     public List<Board> myParticipationBoardList(Member member) {
         List<Participation> participationList = participationRepository.findAllByMember(member);
-        if (participationList.isEmpty()) {
-            // catch exception
-            log.warn("참여 중인 곳이 없습니다.");
-            throw new RuntimeException("참여 중인 곳이 없습니다.");
-        }
         List<Board> myParticipationBoardList = new ArrayList<>();
+        if (participationList.isEmpty()) {
+            return myParticipationBoardList;
+        }
         for (Participation part : participationList) {
             myParticipationBoardList.add(part.getBoard());
         }

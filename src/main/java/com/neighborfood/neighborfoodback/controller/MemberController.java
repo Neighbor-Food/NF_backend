@@ -2,10 +2,13 @@ package com.neighborfood.neighborfoodback.controller;
 
 import com.neighborfood.neighborfoodback.dto.MemberDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
+import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.security.jwtTokenProvider;
+import com.neighborfood.neighborfoodback.service.BoardService;
 import com.neighborfood.neighborfoodback.service.EmailAuthService;
 import com.neighborfood.neighborfoodback.service.MemberService;
+import com.neighborfood.neighborfoodback.service.ParticipationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -21,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @Slf4j
@@ -30,6 +34,12 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private BoardService boardService;
+
+    @Autowired
+    private ParticipationService participationService;
 
     @Autowired
     private jwtTokenProvider tokenProvider;
@@ -105,6 +115,16 @@ public class MemberController {
     @GetMapping("/out")
     public ResponseEntity<?> out(@AuthenticationPrincipal String email) {
         try {
+            // 현재 로그인 한 사용자 정보 get
+            Member member = memberService.getMember(email);
+            // 내가 참여중인 게시글 리스트 가져오기
+            List<Board> myParticipationBoardList = participationService.myParticipationBoardList(member);
+            // set board cur_people and save status
+            for (Board board : myParticipationBoardList) {
+                board.setCur_people(participationService.countByBoard(board)-1);
+                boardService.modify(board);
+            }
+            // delete
             memberService.delete(email);
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("success")
