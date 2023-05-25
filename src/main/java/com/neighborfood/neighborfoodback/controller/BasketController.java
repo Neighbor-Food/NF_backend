@@ -144,12 +144,15 @@ public class BasketController {
 
             //여기서 부터 작업, 성능상 수정이 필요할 것으로 예상됨
             List<Basket> baskets = basketService.getListByBoard(board);
-            for(Basket basket : baskets){
-                if(basket.getMember() == member && basket.isConfirmed() == true){
-                    Exception e = new Exception("입금확인된 사용자는 장바구니를 추가할 수 없습니다");
-                    throw  e;
+            if(baskets != null){
+                for(Basket basket : baskets){
+                    if(basket.getMember() == member && basket.isConfirmed() == true){
+                        Exception e = new Exception("입금확인된 사용자는 장바구니를 추가할 수 없습니다");
+                        throw  e;
+                    }
                 }
             }
+            
 
             Basket basket = Basket.builder()
                     .board(board)

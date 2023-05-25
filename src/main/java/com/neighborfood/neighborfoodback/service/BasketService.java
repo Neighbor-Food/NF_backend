@@ -89,6 +89,16 @@ public class BasketService {
         return basketList;
     }
 
+    //null 반환
+    public List<Basket> getListByBoardReturnNull(Board board) {
+        List<Basket> basketList = basketRepository.findByBoard(board);
+        if (basketList.isEmpty()) {
+            // catch exception
+            return null;
+        }
+        return basketList;
+    }
+
     public List<Basket> getMyBoardList(Member member) {
         List<Basket> myBasketList = basketRepository.findAllByMember(member);
         if (myBasketList.isEmpty()) {
