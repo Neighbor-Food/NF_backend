@@ -1,17 +1,15 @@
 package com.neighborfood.neighborfoodback.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.neighborfood.neighborfoodback.entity.Basket;
 import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.repository.BasketRepository;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -19,7 +17,7 @@ public class BasketService {
     private final BasketRepository basketRepository;
 
     @Autowired
-    public BasketService(BasketRepository basketRepository){
+    public BasketService(BasketRepository basketRepository) {
         this.basketRepository = basketRepository;
     }
 
@@ -43,6 +41,7 @@ public class BasketService {
         }
         return basketRepository.save(basket);
     }
+
     //조회
     public Basket getBasket(Integer basketNo) {
         Optional<Basket> basket = basketRepository.findById(basketNo);
@@ -54,6 +53,7 @@ public class BasketService {
             throw new RuntimeException("basket does not exist");
         }
     }
+
     //작성자 비교
     public void compareWriter1AndWriter2(Integer writer1, Integer writer2) {
         boolean isSame = writer1.equals(writer2);
@@ -63,6 +63,7 @@ public class BasketService {
             throw new RuntimeException("writer1 and writer2 are not same");
         }
     }
+
     //수정
     public Basket modify(Basket basket) {
         if (basket == null) {
@@ -73,6 +74,7 @@ public class BasketService {
 
         return basketRepository.save(basket);
     }
+
     //삭제
     public void delete(Integer id) {
         basketRepository.deleteById(id);
@@ -121,7 +123,7 @@ public class BasketService {
     }
 
     public void deleteList(List<Basket> basketList) {
-        for(Basket basket : basketList){
+        for (Basket basket : basketList) {
             Integer basket_no = basket.getBasket_no();
             basketRepository.deleteById(basket_no);
         }
@@ -136,7 +138,11 @@ public class BasketService {
 
         return basketList;
 
-    
+
     }
-    
+
+    public List<Basket> getMyBasketList(Member member, Board board) {
+        return basketRepository.findAllByMemberAndBoard(member, board);
+    }
+
 }
