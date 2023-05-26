@@ -17,11 +17,6 @@ public class RestaurantService {
 
     public List<Restaurant> getList() {
         List<Restaurant> restaurantList = restaurantRepository.findAll();
-        if (restaurantList.isEmpty()) {
-            // catch exception
-            log.warn("restaurants do not exist");
-            throw new RuntimeException("restaurants do not exist");
-        }
         return restaurantList;
     }
 
@@ -40,11 +35,6 @@ public class RestaurantService {
     // 카테고리에 대한 음식점 리스트 조회
     public List<Restaurant> getListByCategory(String category) {
         List<Restaurant> restaurantList = restaurantRepository.findByCategoryContaining(category);
-        if (restaurantList.isEmpty()) {
-            // catch exception
-            log.warn("restaurants do not exist");
-            throw new RuntimeException("restaurants do not exist");
-        }
         return restaurantList;
     }
 }
