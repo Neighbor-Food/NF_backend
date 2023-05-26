@@ -2,9 +2,11 @@ package com.neighborfood.neighborfoodback.controller;
 
 import com.neighborfood.neighborfoodback.dto.ParticipationDTO;
 import com.neighborfood.neighborfoodback.dto.ResponseDTO;
+import com.neighborfood.neighborfoodback.entity.Basket;
 import com.neighborfood.neighborfoodback.entity.Board;
 import com.neighborfood.neighborfoodback.entity.Member;
 import com.neighborfood.neighborfoodback.entity.Participation;
+import com.neighborfood.neighborfoodback.service.BasketService;
 import com.neighborfood.neighborfoodback.service.BoardService;
 import com.neighborfood.neighborfoodback.service.MemberService;
 import com.neighborfood.neighborfoodback.service.ParticipationService;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @Slf4j
@@ -27,6 +31,9 @@ public class ParticipationController {
 
     @Autowired
     private ParticipationService participationService;
+
+    @Autowired
+    private BasketService basketService;
 
     @GetMapping("/in/{board_no}")
     public ResponseEntity<?> participateBoard(@AuthenticationPrincipal String email, @PathVariable("board_no") Integer board_no) {
@@ -75,6 +82,12 @@ public class ParticipationController {
             Member member = memberService.getMember(email);
             // 게시글 정보 get
             Board board = boardService.getBoard(board_no);
+            // 해당 게시글에 장바구니가 들어있으면 exception
+            List<Basket> basketList = basketService.getMyBasketList(member, board);
+            if (!basketList.isEmpty()) {
+                log.warn("해당 게시글에 장바구니가 들어있어 탈퇴할 수 없습니다.");
+                throw new RuntimeException("해당 게시글에 장바구니가 들어있어 탈퇴할 수 없습니다.");
+            }
             // delete
             participationService.delete(board, member);
             // set board cur_people and save status

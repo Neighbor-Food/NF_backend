@@ -164,8 +164,9 @@ public class RestaurantController {
     @GetMapping(value = "/getImage/{restaurant_no}")
     public ResponseEntity<Resource> getImage(@PathVariable("restaurant_no") Integer restaurant_no) {
         try {
-            // 파일 경로를 설정합니다. resources/static/restaurantImages 폴더에 있는 이미지 name 을 가져옴.
+            // PathVariable 에 해당하는 primary key 로 해당 entity 를 찾음
             Restaurant restaurant = restaurantService.getRestaurant(restaurant_no);
+            // 저장되어 있는 이미지 path 를 가져옴
             String image_path = restaurant.getImage_path();
 
             // resources/static/restaurantImages 아래에 있는 파일을 읽음.
@@ -175,7 +176,7 @@ public class RestaurantController {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.IMAGE_JPEG);
 
-            // byte 배열과 HttpHeaders를 사용하여 ResponseEntity를 생성하여 반환.
+            // ResponseEntity를 생성하여 반환.
             return ResponseEntity.ok()
                     .headers(headers)
                     .body(resource);

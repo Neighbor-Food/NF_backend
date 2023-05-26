@@ -13,5 +13,7 @@ public interface BasketRepository extends JpaRepository<Basket, Integer>{
     List<Basket> findByBoard(Board board);
 
     List<Basket> findAllByMember(Member member);
+
+    List<Basket> findAllByMemberAndBoard(Member member, Board board);
     
 }
