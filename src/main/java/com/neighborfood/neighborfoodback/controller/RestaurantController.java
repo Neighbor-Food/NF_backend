@@ -167,19 +167,11 @@ public class RestaurantController {
 
             // PathVariable 에 해당하는 primary key 로 해당 entity 를 찾음
             Restaurant restaurant = restaurantService.getRestaurant(restaurant_no);
-//            // 저장되어 있는 이미지 path 를 가져옴
-//            String image_path = restaurant.getImage_path();
+            // 저장되어 있는 이미지 path 를 가져옴
+            String image_path = restaurant.getImage_path();
 
-            // 리팩토링 시작
-            // 파일 경로를 설정합니다. resources/static/restaurantImages 폴더에 있는 이미지 name 을 가져옴.
-            String filePath = "static/restaurantImages/" + restaurant.getName();
-            log.warn("file path >>> {}", filePath);
             // resources/static/restaurantImages 아래에 있는 파일을 읽음.
-            Resource resource = new ClassPathResource(filePath + ".jpg");
-            // 리팩토링 끝
-
-//            // resources/static/restaurantImages 아래에 있는 파일을 읽음.
-//            Resource resource = new ClassPathResource(image_path);
+            Resource resource = new ClassPathResource(image_path);
 
             // HttpHeaders를 설정.
             HttpHeaders headers = new HttpHeaders();
