@@ -32,6 +32,7 @@ public class Menu {
     private String name;
     private Integer price;
     private LocalDateTime last_update;
+    private String image_path;
 
     @JsonBackReference
     @JoinColumn(name = "restaurant_no")
