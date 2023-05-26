@@ -82,12 +82,10 @@ public class ParticipationController {
             Member member = memberService.getMember(email);
             // 게시글 정보 get
             Board board = boardService.getBoard(board_no);
+            // 참여 탈퇴하려는 게시글이 본인이 쓴 게시글이면 exception
+            participationService.compareWriter1AndWriter2(member.getMember_no(), board.getMember().getMember_no());
             // 해당 게시글에 장바구니가 들어있으면 exception
-            List<Basket> basketList = basketService.getMyBasketList(member, board);
-            if (!basketList.isEmpty()) {
-                log.warn("해당 게시글에 장바구니가 들어있어 탈퇴할 수 없습니다.");
-                throw new RuntimeException("해당 게시글에 장바구니가 들어있어 탈퇴할 수 없습니다.");
-            }
+            participationService.findBasket(member, board);
             // delete
             participationService.delete(board, member);
             // set board cur_people and save status
