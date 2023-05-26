@@ -1,9 +1,6 @@
 package com.neighborfood.neighborfoodback.service;
 
-import com.neighborfood.neighborfoodback.entity.Board;
-import com.neighborfood.neighborfoodback.entity.Member;
-import com.neighborfood.neighborfoodback.entity.Participation;
-import com.neighborfood.neighborfoodback.entity.Reply;
+import com.neighborfood.neighborfoodback.entity.*;
 import com.neighborfood.neighborfoodback.repository.ParticipationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,9 @@ public class ParticipationService {
 
     @Autowired
     private EmailAuthService emailAuthService;
+
+    @Autowired
+    private BasketService basketService;
 
     public Participation create(Participation participation) {
         if (participation == null) {
@@ -67,6 +67,22 @@ public class ParticipationService {
             myParticipationBoardList.add(part.getBoard());
         }
         return myParticipationBoardList;
+    }
+
+    public void compareWriter1AndWriter2(Integer writer1, Integer writer2) {
+        boolean isSame = writer1.equals(writer2);
+        if (isSame) {
+            log.warn("본인이 작성한 게시글은 모임을 탈퇴할 수 없습니다.");
+            throw new RuntimeException("본인이 작성한 게시글은 모임을 탈퇴할 수 없습니다.");
+        }
+    }
+
+    public void findBasket(Member member, Board board) {
+        List<Basket> basketList = basketService.getMyBasketList(member, board);
+        if (!basketList.isEmpty()) {
+            log.warn("해당 게시글에 장바구니가 들어있어 모임을 탈퇴할 수 없습니다.");
+            throw new RuntimeException("해당 게시글에 장바구니가 들어있어 모임을 탈퇴할 수 없습니다.");
+        }
     }
 
     // 새 댓글 알림 (메일 전송)
