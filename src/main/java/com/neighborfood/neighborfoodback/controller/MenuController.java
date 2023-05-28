@@ -3,8 +3,12 @@ package com.neighborfood.neighborfoodback.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,13 +74,39 @@ public class MenuController {
             .result("success")
             .data(menuInfoDTOList)
             .build();
-    return ResponseEntity.ok().body(responseDTO);
+            return ResponseEntity.ok().body(responseDTO);
         }catch(Exception e){
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .result("fail")
                     .error(e.getMessage())
                     .build();
             return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+
+    @GetMapping("/image/{menu_no}")
+    public ResponseEntity<?> getMenuImage(@PathVariable("menu_no") Integer menu_no){
+        try {
+
+            // PathVariable 에 해당하는 primary key 로 해당 entity 를 찾음
+            Menu menu = menuService.getMenu(menu_no);
+            // 저장되어 있는 이미지 path 를 가져옴
+            String image_path = menu.getImage_path();
+
+            // resources/static/restaurantImages 아래에 있는 파일을 읽음.
+            Resource resource = new ClassPathResource(image_path);
+
+            // HttpHeaders를 설정.
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+
+            // ResponseEntity를 생성하여 반환.
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(resource);
+        } catch (Exception e) {
+            // 파일을 찾지 못한 경우나 읽을 수 없는 경우 예외 처리.
+            return ResponseEntity.notFound().build();
         }
     }
 }
