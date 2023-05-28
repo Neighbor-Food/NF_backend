@@ -19,11 +19,6 @@ public class BoardService {
     // 전체 게시글 리스트 조회
     public List<Board> getList() {
         List<Board> boardList = boardRepository.findAll();
-        if (boardList.isEmpty()) {
-            // catch exception
-            log.warn("boards do not exist");
-            throw new RuntimeException("boards do not exist");
-        }
         return boardList;
     }
 
@@ -34,30 +29,20 @@ public class BoardService {
             return board.get();
         } else {
             // catch exception
-            log.warn("board does not exist");
-            throw new RuntimeException("board does not exist");
+            log.warn("존재하지 않는 게시글입니다.");
+            throw new RuntimeException("존재하지 않는 게시글입니다.");
         }
     }
 
     // 내가 작성한 게시글 리스트 조회
     public List<Board> getMyBoardList(Member member) {
         List<Board> myBoardList = boardRepository.findAllByMember(member);
-        if (myBoardList.isEmpty()) {
-            // catch exception
-            log.warn("my board list does not exist");
-            throw new RuntimeException("my board list does not exist");
-        }
         return myBoardList;
     }
 
     // 카테고리에 대한 게시글 리스트 조회
     public List<Board> getListByCategory(String category) {
         List<Board> boardList = boardRepository.findByCategoryContaining(category);
-        if (boardList.isEmpty()) {
-            // catch exception
-            log.warn("boards do not exist");
-            throw new RuntimeException("boards do not exist");
-        }
         return boardList;
     }
 
@@ -65,8 +50,8 @@ public class BoardService {
     public Board create(Board board) {
         if (board == null) {
             // catch exception
-            log.warn("board does not exist");
-            throw new RuntimeException("board does not exist");
+            log.warn("게시글에 아무 내용이 없습니다.");
+            throw new RuntimeException("게시글에 아무 내용이 없습니다.");
         }
         return boardRepository.save(board);
     }
@@ -80,8 +65,8 @@ public class BoardService {
     public Board modify(Board board) {
         if (board == null) {
             // catch exception
-            log.warn("invalid argument");
-            throw new RuntimeException("invalid argument");
+            log.warn("게시글에 아무 내용이 없습니다.");
+            throw new RuntimeException("게시글에 아무 내용이 없습니다.");
         }
 
         return boardRepository.save(board);
@@ -92,8 +77,8 @@ public class BoardService {
         boolean isSame = writer1.equals(writer2);
         if (!isSame) {
             // catch exception
-            log.warn("writer1 and writer2 are not same");
-            throw new RuntimeException("writer1 and writer2 are not same");
+            log.warn("작성자가 다릅니다");
+            throw new RuntimeException("작성자가 다릅니다.");
         }
     }
 }
