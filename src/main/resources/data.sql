@@ -20,6 +20,7 @@ values ('user05@kumoh.ac.kr', '1234', '최이름', '', '하나', '000-0000-000',
 
 --식당 데이터
 USE uracle_kit;
+USE uracle_kit;
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (1, '제주집', '한식', 0.0, 0.0, 'static/restaurantImages/제주집.jpg');
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (2, '하루', '일식', 0.0, 0.0, 'static/restaurantImages/하루.jpg');
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (3, '선산곱창', '야식', 0.0, 0.0, 'static/restaurantImages/선산곱창.jpg');
@@ -32,37 +33,37 @@ INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_p
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (10, '초심', '일식', 0.0, 0.0, 'static/restaurantImages/초심.jpg');
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (11, '신대광반점', '중식', 0.0, 0.0, 'static/restaurantImages/신대광반점.jpg');
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (12, '레브', '양식', 0.0, 0.0, 'static/restaurantImages/레브.jpg');
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (13, '송정둥지보쌈 옥계직영점', '야식', 0.0, 0.0, 'static/restaurantImages/송정둥지보쌈 옥계직영점.jpg');
-INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (14, '신대광반점', '중식', 0.0, 0.0, 'static/restaurantImages/신대광반점.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (13, '송정둥지보쌈 옥계직영점', '한식', 0.0, 0.0, 'static/restaurantImages/송정둥지보쌈 옥계직영점.jpg');
+INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (14, '옥계분식', '분식', 0.0, 0.0, 'static/restaurantImages/옥계분식.jpg');
 INSERT INTO restaurant (restaurant_no, name, category, delivery_tip, min_order_price, image_path) VALUES (15, '키햐아 옥계점', '일식', 0.0, 0.0, 'static/restaurantImages/키햐아 옥계점.jpg');
 
+
 --메뉴데이터
-USE uracle_kit;
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (1, '제주오겹살 (150g)', '1', 11900.0, "2023-05-08 00:00:00", 'static/menuImages/1제주오겹살 (150g).jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (2, '제주목살 (150g)', '1', 11900.0, "2023-05-08 00:00:00", 'static/menuImages/1제주목살 (150g).jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (3, '신국물갈비 (250g)', '1', 13900.0, "2023-05-08 00:00:00", 'static/menuImages/1신국물갈비 (250g).jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (4, '김치말이국수', '1', 4000.0, "2023-05-08 00:00:00", 'static/menuImages/1김치말이국수.jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (5, '활어회(소)', '2', 60000.0, "2023-05-16 00:00:00", 'static/menuImages/2활어회(소).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (6, '활어회(중)', '2', 80000.0, "2023-05-16 00:00:00", 'static/menuImages/2활어회(중).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (7, '활어회(대)', '2', 100000.0, "2023-05-16 00:00:00", 'static/menuImages/2활어회(대).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (8, '활어회(특대)', '2', 120000.0, "2023-05-16 00:00:00", 'static/menuImages/2활어회(특대).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (9, '특물회(점심메뉴)', '2', 20000.0, "2023-05-16 00:00:00", 'static/menuImages/2특물회(점심메뉴).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (10, '하루정식(점심메뉴)', '2', 20000.0, "2023-05-16 00:00:00", 'static/menuImages/2하루정식(점심메뉴).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (11, '특초밥(점심메뉴)', '2', 17000.0, "2023-05-16 00:00:00", 'static/menuImages/2특초밥(점심메뉴).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (12, '우럭탕1인(점심메뉴)', '2', 20000.0, "2023-05-16 00:00:00", 'static/menuImages/2우럭탕1인(점심메뉴).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (13, '도다리(소)', '2', 70000.0, "2023-05-16 00:00:00", 'static/menuImages/2도다리(소).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (14, '게르치(소)', '2', 90000.0, "2023-05-16 00:00:00", 'static/menuImages/2게르치(소).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (15, '줄돔(소)', '2', 70000.0, "2023-05-16 00:00:00", 'static/menuImages/2줄돔(소).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (16, '참돔(소)', '2', 70000.0, "2023-05-16 00:00:00", 'static/menuImages/2참돔(소).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (17, '농어(소)', '2', 70000.0, "2023-05-16 00:00:00", 'static/menuImages/2농어(소).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (18, '모둠해산물', '2', 70000.0, "2023-05-16 00:00:00", 'static/menuImages/2모둠해산물.jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (19, '물회(점심메뉴)', '2', 15000.0, "2023-05-16 00:00:00", 'static/menuImages/2물회(점심메뉴).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (20, '간장게장정식(점심메뉴)', '2', 20000.0, "2023-05-16 00:00:00", 'static/menuImages/2간장게장정식(점심메뉴).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (21, '회덮밥(점심메뉴)', '2', 12000.0, "2023-05-16 00:00:00", 'static/menuImages/2회덮밥(점심메뉴).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (22, '초밥10개(점심메뉴)', '2', 12000.0, "2023-05-16 00:00:00", 'static/menuImages/2초밥10개(점심메뉴).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (23, '전복회', '2', 25000.0, "2023-05-16 00:00:00", 'static/menuImages/2전복회.jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (24, '새우튀김', '2', 15000.0, "2023-05-16 00:00:00", 'static/menuImages/2새우튀김.jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (25, '곱창전골 (1인분)', '3', 8000.0, "2023-05-16 00:00:00", 'static/menuImages/3곱창전골 (1인분).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (5, '활어회(소)', '2', 60000.0, "2023-05-27 00:00:00", 'static/menuImages/2활어회(소).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (6, '활어회(중)', '2', 80000.0, "2023-05-27 00:00:00", 'static/menuImages/2활어회(중).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (7, '활어회(대)', '2', 100000.0, "2023-05-27 00:00:00", 'static/menuImages/2활어회(대).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (8, '활어회(특대)', '2', 120000.0, "2023-05-27 00:00:00", 'static/menuImages/2활어회(특대).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (9, '특물회(점심메뉴)', '2', 20000.0, "2023-05-27 00:00:00", 'static/menuImages/2특물회(점심메뉴).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (10, '하루정식(점심메뉴)', '2', 20000.0, "2023-05-27 00:00:00", 'static/menuImages/2하루정식(점심메뉴).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (11, '특초밥(점심메뉴)', '2', 17000.0, "2023-05-27 00:00:00", 'static/menuImages/2특초밥(점심메뉴).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (12, '우럭탕1인(점심메뉴)', '2', 20000.0, "2023-05-27 00:00:00", 'static/menuImages/2우럭탕1인(점심메뉴).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (13, '도다리(소)', '2', 70000.0, "2023-05-27 00:00:00", 'static/menuImages/2도다리(소).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (14, '게르치(소)', '2', 90000.0, "2023-05-27 00:00:00", 'static/menuImages/2게르치(소).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (15, '줄돔(소)', '2', 70000.0, "2023-05-27 00:00:00", 'static/menuImages/2줄돔(소).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (16, '참돔(소)', '2', 70000.0, "2023-05-27 00:00:00", 'static/menuImages/2참돔(소).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (17, '농어(소)', '2', 70000.0, "2023-05-27 00:00:00", 'static/menuImages/2농어(소).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (18, '모둠해산물', '2', 70000.0, "2023-05-27 00:00:00", 'static/menuImages/2모둠해산물.jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (19, '물회(점심메뉴)', '2', 15000.0, "2023-05-27 00:00:00", 'static/menuImages/2물회(점심메뉴).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (20, '간장게장정식(점심메뉴)', '2', 20000.0, "2023-05-27 00:00:00", 'static/menuImages/2간장게장정식(점심메뉴).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (21, '회덮밥(점심메뉴)', '2', 12000.0, "2023-05-27 00:00:00", 'static/menuImages/2회덮밥(점심메뉴).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (22, '초밥10개(점심메뉴)', '2', 12000.0, "2023-05-27 00:00:00", 'static/menuImages/2초밥10개(점심메뉴).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (23, '전복회', '2', 25000.0, "2023-05-27 00:00:00", 'static/menuImages/2전복회.jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (24, '새우튀김', '2', 15000.0, "2023-05-27 00:00:00", 'static/menuImages/2새우튀김.jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (25, '곱창전골 (1인분)', '3', 8000.0, "2023-05-27 00:00:00", 'static/menuImages/3곱창전골 (1인분).jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (26, '수비드스테이크', '4', 30000.0, "2023-04-19 00:00:00", 'static/menuImages/4수비드스테이크.jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (27, '감베로니크림파스타', '4', 15000.0, "2023-04-19 00:00:00", 'static/menuImages/4감베로니크림파스타.jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (28, '감베로니오일파스타', '4', 14000.0, "2023-04-19 00:00:00", 'static/menuImages/4감베로니오일파스타.jpg');
@@ -103,7 +104,7 @@ INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) 
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (63, '탕수육(소)', '11', 18000.0, "2022-11-12 00:00:00", 'static/menuImages/11탕수육(소).jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (64, '문어', '12', 23000.0, "2022-11-12 00:00:00", 'static/menuImages/12문어.jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (65, '감자튀김', '12', 8000.0, "2022-11-12 00:00:00", 'static/menuImages/12감자튀김.jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (66, '가지', '12', 14000.0, "2022-11-12 00:00:00", 'static/menuImages/12가지.jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (66, '트러플 감자뇨끼', '12', 14000.0, "2022-11-12 00:00:00", 'static/menuImages/12트러플 감자뇨끼.jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (67, '한우 채끝', '12', 61000.0, "2022-11-12 00:00:00", 'static/menuImages/12한우 채끝.jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (68, '커리파스타', '12', 22000.0, "2022-11-12 00:00:00", 'static/menuImages/12커리파스타.jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (69, '족발 (소)', '13', 27000.0, "2022-11-11 00:00:00", 'static/menuImages/13족발 (소).jpg');
@@ -111,11 +112,11 @@ INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) 
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (71, '족보쌈 (소)', '13', 35000.0, "2022-11-11 00:00:00", 'static/menuImages/13족보쌈 (소).jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (72, '양념불족발 (소)', '13', 30000.0, "2022-11-11 00:00:00", 'static/menuImages/13양념불족발 (소).jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (73, '냉채족발 (소)', '13', 30000.0, "2022-11-11 00:00:00", 'static/menuImages/13냉채족발 (소).jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (74, '짜장면', '14', 5000.0, "2022-11-11 00:00:00", 'static/menuImages/14짜장면.jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (75, '짬뽕', '14', 6000.0, "2022-11-11 00:00:00", 'static/menuImages/14짬뽕.jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (76, '볶음밥', '14', 6000.0, "2022-11-11 00:00:00", 'static/menuImages/14볶음밥.jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (77, '중화비빔밥', '14', 8000.0, "2022-11-11 00:00:00", 'static/menuImages/14중화비빔밥.jpg');
-INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (78, '탕수육(소)', '14', 18000.0, "2022-11-11 00:00:00", 'static/menuImages/14탕수육(소).jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (74, '떡볶이', '14', 3000.0, "2022-11-11 00:00:00", 'static/menuImages/14떡볶이.jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (75, '찰순대', '14', 3000.0, "2022-11-11 00:00:00", 'static/menuImages/14찰순대.jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (76, '물오뎅', '14', 1000.0, "2022-11-11 00:00:00", 'static/menuImages/14물오뎅.jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (77, '콜팝', '14', 3000.0, "2022-11-11 00:00:00", 'static/menuImages/14콜팝.jpg');
+INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (78, '양념오뎅', '14', 1000.0, "2022-11-11 00:00:00", 'static/menuImages/14양념오뎅.jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (79, '사케동', '15', 13000.0, "2022-11-11 00:00:00", 'static/menuImages/15사케동.jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (80, '규동', '15', 9500.0, "2022-11-11 00:00:00", 'static/menuImages/15규동.jpg');
 INSERT INTO menu (menu_no, name, restaurant_no, price, last_update, image_path) VALUES (81, '나가사키우동', '15', 9500.0, "2022-11-11 00:00:00", 'static/menuImages/15나가사키우동.jpg');
