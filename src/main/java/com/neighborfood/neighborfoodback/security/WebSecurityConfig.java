@@ -37,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/board/**",
                         "/api/reply/**",
                         "/api/restaurant/**",
+                        "/api/menu/**",
                         "/h2-console/**").permitAll()
                 .anyRequest()
                 .authenticated();
